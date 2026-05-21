@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" font-family="Plus Jakarta Sans, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#dcf3e6"/>
+    </linearGradient>
+    <linearGradient id="badge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22c55e"/>
+      <stop offset="1" stop-color="#15803d"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <rect x="80" y="80" width="120" height="120" rx="26" fill="url(#badge)"/>
+  <path d="M118 138 L140 124 L162 138 L162 172 L150 172 L150 156 L130 156 L130 172 L118 172 Z" fill="#ffffff"/>
+
+  <text x="220" y="146" font-size="68" font-weight="800" fill="#0f172a">GiziGo</text>
+  <text x="220" y="190" font-size="26" fill="#1d623b" font-weight="600">Optimization-Based Daily Meal Planning</text>
+
+  <text x="80" y="290" font-size="44" font-weight="700" fill="#0f172a">Turn every Rupiah into the most</text>
+  <text x="80" y="338" font-size="44" font-weight="700" fill="#0f172a">nutritious plate. ILP-grade.</text>
+
+  <text x="80" y="402" font-size="22" fill="#475569">A linear-program meal planner against Indonesia's 21.6% under-five</text>
+  <text x="80" y="430" font-size="22" fill="#475569">stunting rate. Built solo for ALGOfest Hackathon 2026.</text>
+
+  <g transform="translate(80, 478)">
+    <rect width="320" height="92" rx="14" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="20" y="32" font-size="14" font-weight="700" fill="#1d623b" letter-spacing="2">SOLVER</text>
+    <text x="20" y="58" font-size="22" fill="#0f172a" font-weight="700">PuLP + COIN-OR CBC</text>
+    <text x="20" y="80" font-size="14" fill="#475569">Provable optimum, &lt; 1s</text>
+  </g>
+  <g transform="translate(420, 478)">
+    <rect width="320" height="92" rx="14" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="20" y="32" font-size="14" font-weight="700" fill="#1d623b" letter-spacing="2">DATA</text>
+    <text x="20" y="58" font-size="22" fill="#0f172a" font-weight="700">TKPI 2020, Permenkes 28/2019</text>
+    <text x="20" y="80" font-size="14" fill="#475569">1,146 ingredients · 8 nutrients</text>
+  </g>
+  <g transform="translate(760, 478)">
+    <rect width="360" height="92" rx="14" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="20" y="32" font-size="14" font-weight="700" fill="#1d623b" letter-spacing="2">LIVE</text>
+    <text x="20" y="58" font-size="22" fill="#0f172a" font-weight="700">gizigo.jmola.my.id</text>
+    <text x="20" y="80" font-size="14" fill="#475569">HTTPS · 7 commits · MIT</text>
+  </g>
+</svg>

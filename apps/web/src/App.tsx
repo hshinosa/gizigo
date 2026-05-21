@@ -1,12 +1,14 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import { Toaster, toast } from "sonner";
-import { Loader2, Sparkles } from "lucide-react";
+import { Loader2, Sparkles, Info } from "lucide-react";
 import { HouseholdForm } from "./components/HouseholdForm";
 import { PlanCard } from "./components/PlanCard";
 import { InfeasibilityPanel } from "./components/InfeasibilityPanel";
 import { SensitivityBar, type Perturbation } from "./components/SensitivityBar";
 import { RecipeDrawer } from "./components/RecipeDrawer";
-import { PERSONAS } from "./data/personas";
+import { MethodsModal } from "./components/MethodsModal";
+import { Footer } from "./components/Footer";
+import { PERSONAS, type PersonaId } from "./data/personas";
 import { COPY } from "./copy/id";
 import { optimize, sensitivity, humanize, ApiClientError } from "./lib/api";
 import type { OptimizeRequest, OptimizeResponse, Plan } from "./lib/types";
@@ -26,14 +28,27 @@ const PRESET_PERTURBATIONS: Record<string, Perturbation[]> = {
   ],
 };
 
+function readPersonaFromUrl(): PersonaId | null {
+  if (typeof window === "undefined") return null;
+  const params = new URLSearchParams(window.location.search);
+  const value = params.get("persona");
+  if (value === "bu_sari" || value === "anggaran_ekstrem") return value;
+  return null;
+}
+
 export default function App() {
-  const [request, setRequest] = useState<OptimizeRequest>(PERSONAS.bu_sari);
+  const initialPersona = readPersonaFromUrl();
+  const [request, setRequest] = useState<OptimizeRequest>(
+    initialPersona ? PERSONAS[initialPersona] : PERSONAS.bu_sari,
+  );
   const [status, setStatus] = useState<Status>("idle");
   const [response, setResponse] = useState<OptimizeResponse | null>(null);
   const [perturbations, setPerturbations] = useState<Perturbation[]>([]);
   const [costDelta, setCostDelta] = useState(0);
   const [drawerPlan, setDrawerPlan] = useState<Plan | null>(null);
   const [drawerMeals, setDrawerMeals] = useState<{ meal_slot: string; title: string; description: string }[]>([]);
+  const [methodsOpen, setMethodsOpen] = useState(false);
+  const autoRunRef = useRef(false);
 
   const runOptimize = useCallback(async () => {
     setStatus("loading");
@@ -47,13 +62,13 @@ export default function App() {
         });
       } else if (result.infeasibility) {
         setStatus("success");
-        toast.warning("Plan tersedia tapi sebagian AKG belum tercapai.", {
+        toast.warning("Plans available, but some RDA targets are not met.", {
           description: result.infeasibility.message,
         });
       } else if (result.plans.length > 0) {
         setStatus("success");
-        toast.success(`Rencana siap · ${result.elapsed_ms} ms`, {
-          description: `${result.plans.length} plan · catalog ${result.catalog_hash.slice(0, 8)}`,
+        toast.success(`Plan ready · ${result.elapsed_ms} ms`, {
+          description: `${result.plans.length} plans · catalog ${result.catalog_hash.slice(0, 8)}`,
         });
       } else {
         setStatus("success");
@@ -61,12 +76,19 @@ export default function App() {
     } catch (err) {
       setStatus("error");
       if (err instanceof ApiClientError) {
-        toast.error(err.message, { description: `Kode: ${err.errorCode}` });
+        toast.error(err.message, { description: `Code: ${err.errorCode}` });
       } else {
         toast.error(COPY.errors.generic);
       }
     }
   }, [request]);
+
+  useEffect(() => {
+    if (initialPersona && !autoRunRef.current) {
+      autoRunRef.current = true;
+      runOptimize();
+    }
+  }, [initialPersona, runOptimize]);
 
   const runSensitivity = useCallback(async (next: Perturbation[]) => {
     if (!response || next.length === 0) {
@@ -108,20 +130,28 @@ export default function App() {
   }, [response]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-6xl px-5 py-5 flex items-center gap-3">
           <div className="grid h-10 w-10 place-items-center rounded-xl bg-brand-500 text-white shadow-sm">
             <Sparkles className="h-5 w-5" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-xl font-bold text-slate-900">{COPY.app.title}</h1>
             <p className="text-xs text-slate-600">{COPY.app.tagline}</p>
           </div>
+          <button
+            type="button"
+            onClick={() => setMethodsOpen(true)}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm hover:border-brand-300"
+            aria-label="Open methods and data sources"
+          >
+            <Info className="h-3.5 w-3.5" /> Methods
+          </button>
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-5 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <main className="flex-1 mx-auto max-w-6xl w-full px-5 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
         <section className="lg:col-span-5">
           <HouseholdForm
             value={request}
@@ -160,7 +190,7 @@ export default function App() {
                 </div>
               ))}
               <div className="text-center text-xs text-slate-500 flex items-center justify-center gap-1">
-                <Loader2 className="h-3 w-3 animate-spin" /> Menjalankan ILP solver...
+                <Loader2 className="h-3 w-3 animate-spin" /> Running ILP solver...
               </div>
             </div>
           )}
@@ -213,7 +243,9 @@ export default function App() {
         </section>
       </main>
 
+      <Footer />
       <RecipeDrawer plan={drawerPlan} meals={drawerMeals} onClose={() => setDrawerPlan(null)} />
+      <MethodsModal open={methodsOpen} onClose={() => setMethodsOpen(false)} />
       <Toaster richColors position="top-right" closeButton />
     </div>
   );

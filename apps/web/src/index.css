@@ -36,3 +36,48 @@
     border-radius: 4px;
   }
 }
+
+@media print {
+  @page { size: A4; margin: 16mm; }
+
+  body { background: #fff !important; }
+
+  header, footer,
+  [data-print-hide],
+  body > [role="status"],
+  body > [data-sonner-toaster],
+  [aria-modal="true"] {
+    display: none !important;
+  }
+
+  body[data-print-plan] main > section:first-child {
+    display: none !important;
+  }
+
+  body[data-print-plan] main {
+    display: block !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  body[data-print-plan] [data-print-card] {
+    display: none !important;
+    box-shadow: none !important;
+    border: 1px solid #cbd5e1 !important;
+    page-break-inside: avoid;
+  }
+
+  body[data-print-plan="cheapest"] [data-print-card][data-plan-type="cheapest"],
+  body[data-print-plan="balanced"] [data-print-card][data-plan-type="balanced"],
+  body[data-print-plan="diverse"] [data-print-card][data-plan-type="diverse"] {
+    display: block !important;
+  }
+
+  body[data-print-plan]::before {
+    content: "GiziGo — gizigo.jmola.my.id";
+    display: block;
+    font: 600 14px theme("fontFamily.sans");
+    color: #1d623b;
+    margin-bottom: 12px;
+  }
+}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, ChevronUp, Soup, AlertTriangle } from "lucide-react";
+import { ChevronDown, ChevronUp, Soup, AlertTriangle, Printer } from "lucide-react";
 import type { Plan } from "../lib/types";
 import { COPY } from "../copy/id";
 import { fmtIDR, fmtNutrient, fmtPct, cn } from "../lib/format";
@@ -39,6 +39,8 @@ export function PlanCard({ plan, onOpenDrawer }: Props) {
 
   return (
     <article
+      data-print-card
+      data-plan-type={plan.plan_type}
       className={cn(
         "rounded-2xl border bg-white shadow-sm overflow-hidden",
         ACCENT[plan.plan_type],
@@ -62,15 +64,31 @@ export function PlanCard({ plan, onOpenDrawer }: Props) {
             </div>
           )}
         </div>
-        {onOpenDrawer && (
+        <div className="shrink-0 flex items-center gap-1.5 print:hidden">
           <button
             type="button"
-            onClick={() => onOpenDrawer(plan)}
-            className="shrink-0 inline-flex items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm border border-slate-200 hover:border-brand-300 whitespace-nowrap"
+            onClick={() => {
+              if (typeof document === "undefined") return;
+              document.body.dataset.printPlan = plan.plan_type;
+              window.print();
+              setTimeout(() => { delete document.body.dataset.printPlan; }, 500);
+            }}
+            aria-label={`Print ${plan.plan_label} as PDF`}
+            title="Print this plan to PDF"
+            className="inline-flex items-center gap-1 rounded-lg bg-white px-2 py-1.5 text-xs font-medium text-slate-700 shadow-sm border border-slate-200 hover:border-brand-300 whitespace-nowrap"
           >
-            <Soup className="h-3.5 w-3.5" /> Recipe
+            <Printer className="h-3.5 w-3.5" />
           </button>
-        )}
+          {onOpenDrawer && (
+            <button
+              type="button"
+              onClick={() => onOpenDrawer(plan)}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm border border-slate-200 hover:border-brand-300 whitespace-nowrap"
+            >
+              <Soup className="h-3.5 w-3.5" /> Recipe
+            </button>
+          )}
+        </div>
       </header>
 
       <div className="px-5 pb-3 space-y-2">

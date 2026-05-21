@@ -64,6 +64,41 @@ ingredient_overrides:
   tkpi_KR011: goreng
   tkpi_KR010: goreng
 
+  tkpi_BR025: rebus
+  tkpi_BR031: kukus
+
+  tkpi_CR015: rebus
+  tkpi_CR024: rebus
+  tkpi_CR029: rebus
+  tkpi_CR030: sangrai
+
+  tkpi_DR013: tumis
+  tkpi_DR065: tumis
+  tkpi_DR071: tumis
+  tkpi_DR123: tumis
+  tkpi_DR154: goreng
+  tkpi_DR018: tumis
+
+  tkpi_ER001: mentah
+  tkpi_ER006: mentah
+  tkpi_ER031: mentah
+  tkpi_ER040: mentah
+  tkpi_ER069: mentah
+  tkpi_ER098: mentah
+
+  tkpi_GP051: tumis
+  tkpi_GR003: goreng
+  tkpi_GR080: tumis
+  tkpi_GR084: goreng
+
+  tkpi_NR017: tumis
+  tkpi_NR018: tumis
+  tkpi_NR019: sangrai
+  tkpi_NR022: tumis
+  tkpi_NR023: tumis
+
+  tkpi_AP084: rebus
+
 verb_templates:
   tumis: "Stir-fry {ingredients} with a small amount of oil until evenly cooked, season to taste."
   rebus: "Boil {ingredients} in boiling water until tender, then drain."

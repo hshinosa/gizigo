@@ -69,10 +69,15 @@ A full mathematical formulation lives in [`docs/ilp-formulation.md`](docs/ilp-fo
 
 ## Two demo personas
 
-1. **Bu Sari's Family** — father (19-49), Bu Sari (lactating mother), child 5 yrs, toddler. Rp 60,000/day, region DKI Jakarta. Optimizer returns Rp 56,731 across 7 food groups, all eight AKG nutrients ≥ 100 %.
-2. **Extreme Budget** — 5-member household, region National Median, Rp 25,000/day. Optimizer returns *infeasible*, surfaces the minimum estimated budget at Rp 57,000-63,000 (depending on persona shape), and lists the deficit nutrients (energy, protein, vitamin A, calcium).
+1. **Bu Sari's Family** — father (19-49), Bu Sari (lactating mother), child 5 yrs, toddler. Rp 60,000/day, region DKI Jakarta. Optimizer returns ~Rp 35,000 across 5+ food groups, all eight AKG nutrients ≥ 100 %.
+2. **Extreme Budget** — 5-member household, region National Median, Rp 25,000/day. Optimizer returns *infeasible*, surfaces the minimum estimated budget at Rp 41,000-63,000 (depending on persona shape), and lists the deficit nutrients (energy, protein, vitamin A, calcium).
 
-Both personas are baked into the UI as one-click chips so the judge can reproduce them in 2 seconds.
+Both personas are baked into the UI as one-click chips so the judge can reproduce them in 2 seconds. They also have **deep-link URLs** that auto-load and auto-calculate:
+
+- https://gizigo.jmola.my.id/?persona=bu_sari
+- https://gizigo.jmola.my.id/?persona=anggaran_ekstrem
+
+Each plan card has a **print button** that renders a single-page A4 PDF of just that plan (header, AKG bars, full ingredient list grouped by meal slot) using the browser's built-in print engine — useful for handing to a community-health worker or printing as a fridge reminder.
 
 ## Technologies used
 
@@ -121,7 +126,7 @@ Every dataset is committed to the repo so the build is reproducible without re-h
 
 ## Limitations and honest disclosure
 
-- The price tables are a **manually curated 40-ingredient subset** sampled May 2026 from infopangan.jakarta.go.id and PIHPS Bank Indonesia. The optimizer would scale to the full 1,146-ingredient catalog as soon as more prices are filled in.
+- The price tables are a **manually curated 68-ingredient subset** sampled May 2026 from infopangan.jakarta.go.id and PIHPS Bank Indonesia. The optimizer would scale to the full 1,146-ingredient catalog as soon as more prices are filled in.
 - The cooking-method humanizer is **template-driven** by default. An optional LLM path exists behind the `HUMANIZER_LLM_ENABLED` flag with a post-render validator that re-extracts ingredient grams; if drift > 5 %, the LLM output is discarded and the templated path is used. The default is off so the demo stays deterministic.
 - The "Most Varied" plan is a deterministic iterative-substitution heuristic on top of "Cheapest", not a separate ILP. When the variety target cannot be reached without violating AKG or budget, the plan is flagged with a `diverse_constraint_relaxed` badge and the reason is shown to the user.
 

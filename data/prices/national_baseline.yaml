@@ -142,3 +142,94 @@ ingredients:
   tkpi_KR010:
     name: Minyak kedelai
     price_per_100g_idr: 2300
+
+  tkpi_BR025:
+    name: Talas bogor segar
+    price_per_100g_idr: 600
+  tkpi_BR031:
+    name: Ubi jalar putih segar
+    price_per_100g_idr: 600
+
+  tkpi_CR015:
+    name: Kacang hitam kering
+    price_per_100g_idr: 3200
+  tkpi_CR024:
+    name: Kacang merah kering
+    price_per_100g_idr: 2700
+  tkpi_CR029:
+    name: Kacang panjang biji kering
+    price_per_100g_idr: 2500
+  tkpi_CR030:
+    name: Kacang tanah sangrai
+    price_per_100g_idr: 2900
+
+  tkpi_DR013:
+    name: Buncis segar
+    price_per_100g_idr: 950
+  tkpi_DR065:
+    name: Daun pepaya segar
+    price_per_100g_idr: 500
+  tkpi_DR071:
+    name: Daun singkong segar
+    price_per_100g_idr: 400
+  tkpi_DR123:
+    name: Labu siam segar
+    price_per_100g_idr: 600
+  tkpi_DR154:
+    name: Terong segar
+    price_per_100g_idr: 750
+  tkpi_DR018:
+    name: Daun bawang segar
+    price_per_100g_idr: 1000
+
+  tkpi_ER001:
+    name: Alpukat segar
+    price_per_100g_idr: 2400
+  tkpi_ER006:
+    name: Belimbing segar
+    price_per_100g_idr: 1200
+  tkpi_ER031:
+    name: Jambu biji segar
+    price_per_100g_idr: 1100
+  tkpi_ER040:
+    name: Jeruk nipis segar
+    price_per_100g_idr: 1700
+  tkpi_ER069:
+    name: Nanas palembang segar
+    price_per_100g_idr: 750
+  tkpi_ER098:
+    name: Salak bali segar
+    price_per_100g_idr: 2000
+
+  tkpi_GP051:
+    name: Udang kering mentah
+    price_per_100g_idr: 9500
+  tkpi_GR003:
+    name: Cumi-cumi segar
+    price_per_100g_idr: 7200
+  tkpi_GR080:
+    name: Rebon udang kecil segar
+    price_per_100g_idr: 5000
+  tkpi_GR084:
+    name: Udang segar
+    price_per_100g_idr: 8500
+
+  tkpi_NR017:
+    name: Daun salam bubuk
+    price_per_100g_idr: 13000
+  tkpi_NR018:
+    name: Jahe segar
+    price_per_100g_idr: 2200
+  tkpi_NR019:
+    name: Kemiri
+    price_per_100g_idr: 8000
+  tkpi_NR022:
+    name: Kunyit segar
+    price_per_100g_idr: 1700
+  tkpi_NR023:
+    name: Merica kering
+    price_per_100g_idr: 19500
+
+  tkpi_AP084:
+    name: Mie aceh rebus
+    price_per_100g_idr: 2800
