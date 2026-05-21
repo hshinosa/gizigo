@@ -1,6 +1,6 @@
 import type { OptimizeRequest } from "../lib/types";
 
-export type PersonaId = "bu_sari" | "anggaran_ekstrem";
+export type PersonaId = "bu_sari" | "anggaran_ekstrem" | "mbg_sppg";
 
 export const PERSONAS: Record<PersonaId, OptimizeRequest> = {
   bu_sari: {
@@ -27,5 +27,14 @@ export const PERSONAS: Record<PersonaId, OptimizeRequest> = {
     region: "national_baseline",
     restrictions: [],
     plan_types: ["cheapest", "balanced"],
+  },
+  mbg_sppg: {
+    members: [
+      { member_id: "m1", label: "Primary student", akg_category: "child_4_6" },
+    ],
+    daily_budget_idr: 12000,
+    region: "national_baseline",
+    restrictions: [],
+    plan_types: ["cheapest", "balanced", "diverse"],
   },
 };

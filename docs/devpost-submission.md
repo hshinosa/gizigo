@@ -24,7 +24,7 @@ Indonesia's under-five stunting rate is **21.6 %** while the RPJMN 2024-2029 tar
 
 When the budget cannot meet AKG, GiziGo runs a **bisection search on the budget** to surface the *minimum feasible budget* and the nutrient deficits, with a single CTA that raises to the minimum and re-runs the optimiser. A **sensitivity-analysis slider** re-solves the LP under perturbed prices in real time — slide chili up 50 %, watch the *actual new optimum* (not a linear extrapolation) appear.
 
-The UI is in Bahasa Indonesia for the people it's actually for; the architecture, code, and README are in English for the judges. The 1,146-ingredient nutrient catalogue comes from an idempotent scrape of panganku.org (the Kemenkes-affiliated re-publisher of TKPI 2020). AKG values come from Permenkes 28/2019. Retail prices come from infopangan.jakarta.go.id and PIHPS Bank Indonesia. Everything is committed to the repo for reproducibility — `make data` re-builds the entire dataset.
+The UI is in English for the judges; persona names retain their Indonesian honorifics ("Bu Sari", "MBG SPPG") as proper nouns. The three demo personas anchor the system in real Indonesian use-cases — a household-budget family, an extreme-budget infeasibility flow, and the **MBG SPPG** persona that models the per-portion budget of *Makan Bergizi Gratis*, Indonesia's flagship Rp 71-trillion school-meal program launched January 2025 under Perpres 83/2024. The optimizer answers a question the program is being publicly debated on: *is the per-portion budget enough to meet a child's daily AKG?* The 1,146-ingredient nutrient catalogue comes from an idempotent scrape of panganku.org (the Kemenkes-affiliated re-publisher of TKPI 2020). AKG values come from Permenkes 28/2019. Retail prices come from infopangan.jakarta.go.id and PIHPS Bank Indonesia. Everything is committed to the repo for reproducibility — `make data` re-builds the entire dataset.
 
 ## What it does
 
@@ -33,8 +33,17 @@ The UI is in Bahasa Indonesia for the people it's actually for; the architecture
 3. Run a second LP with slack variables to find the most balanced plan.
 4. Apply a deterministic iterative-substitution heuristic to find the most varied plan that's still nutritionally and budget-feasible.
 5. If infeasible, bisect on the budget to surface the minimum feasible Rupiah amount and the deficit nutrient list.
-6. Render every plan as recipe-style narration via a hand-curated cooking-method map, organised by sarapan / makan siang / makan malam / kudapan.
+6. Render every plan as recipe-style narration via a hand-curated cooking-method map, organised by Breakfast / Lunch / Dinner / Snack.
 7. Let the user perturb prices and watch the optimiser re-solve in under 500 ms.
+8. Print any selected plan to a single-page A4 PDF for handing to a community-health worker or an SPPG kitchen.
+
+## MBG (Makan Bergizi Gratis) angle
+
+The MBG program ([Perpres 83/2024](https://peraturan.bpk.go.id/Details/295015/perpres-no-83-tahun-2024)) targets ~82.9 million beneficiaries by 2029 with a per-portion budget reported in the press at **Rp 10,000-15,000**. Public debate has questioned whether that envelope is sufficient to meet a primary-school child's daily AKG.
+
+The GiziGo `mbg_sppg` persona answers the question quantitatively. At national-median prices, a single `child_4_6` AKG profile is satisfied by the cheapest plan at **Rp 4,453**, the most-balanced plan at **Rp 4,172**, and the most-varied plan at **Rp 4,453** — all comfortably under the Rp 10-12k per-portion envelope.
+
+The implication is not that the budget is too low. It's that **AKG is reachable when SPPG (Satuan Pelayanan Pemenuhan Gizi) procurement is optimized**, and that GiziGo can serve as the audit-and-planning layer for SPPG operators: plug in actual local prices, get a deterministic AKG-compliant menu, hit Print, hand to the kitchen.
 
 ## How we built it
 

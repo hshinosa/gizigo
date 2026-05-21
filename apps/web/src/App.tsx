@@ -32,7 +32,7 @@ function readPersonaFromUrl(): PersonaId | null {
   if (typeof window === "undefined") return null;
   const params = new URLSearchParams(window.location.search);
   const value = params.get("persona");
-  if (value === "bu_sari" || value === "anggaran_ekstrem") return value;
+  if (value === "bu_sari" || value === "anggaran_ekstrem" || value === "mbg_sppg") return value;
   return null;
 }
 
