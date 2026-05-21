@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, ChevronUp, Soup, AlertTriangle, Printer } from "lucide-react";
+import { ChevronDown, ChevronUp, Soup, AlertTriangle, Printer, Download } from "lucide-react";
 import type { Plan } from "../lib/types";
 import { COPY } from "../copy/id";
 import { fmtIDR, fmtNutrient, fmtPct, cn } from "../lib/format";
@@ -28,6 +28,28 @@ const BAR_COLOR = (pct: number): string => {
   if (pct <= 200) return "bg-brand-600";
   return "bg-sky-500";
 };
+
+function downloadCSV(plan: Plan) {
+  const rows = [
+    ["ingredient_id", "name", "food_group", "meal_slot", "grams", "cost_idr"],
+    ...plan.ingredients.map((i) => [
+      i.ingredient_id,
+      `"${i.display_name.replace(/"/g, '""')}"`,
+      i.food_group,
+      i.meal_slot,
+      Math.round(i.grams).toString(),
+      Math.round(i.cost_idr).toString(),
+    ]),
+  ];
+  const csv = rows.map((r) => r.join(",")).join("\n");
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `gizigo-${plan.plan_type}-procurement.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
 
 export function PlanCard({ plan, onOpenDrawer }: Props) {
   const [expanded, setExpanded] = useState(true);
@@ -65,6 +87,15 @@ export function PlanCard({ plan, onOpenDrawer }: Props) {
           )}
         </div>
         <div className="shrink-0 flex items-center gap-1.5 print:hidden">
+          <button
+            type="button"
+            onClick={() => downloadCSV(plan)}
+            aria-label={`Download ${plan.plan_label} as CSV`}
+            title="Download procurement list as CSV"
+            className="inline-flex items-center gap-1 rounded-lg bg-white px-2 py-1.5 text-xs font-medium text-slate-700 shadow-sm border border-slate-200 hover:border-brand-300 whitespace-nowrap"
+          >
+            <Download className="h-3.5 w-3.5" />
+          </button>
           <button
             type="button"
             onClick={() => {

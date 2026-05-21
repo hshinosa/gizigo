@@ -73,7 +73,7 @@ export function HouseholdForm({ value, onChange, onSubmit, isLoading }: Props) {
           <Sparkles className="h-4 w-4 text-brand-500" />
           {COPY.persona.label}
         </div>
-        <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2">
+        <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
           <button
             type="button"
             onClick={() => applyPersona("bu_sari")}
@@ -94,6 +94,13 @@ export function HouseholdForm({ value, onChange, onSubmit, isLoading }: Props) {
             className="rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-left text-sm font-medium text-sky-800 hover:border-sky-300"
           >
             {COPY.persona.options.mbg_sppg}
+          </button>
+          <button
+            type="button"
+            onClick={() => applyPersona("sppg_operator")}
+            className="rounded-xl border border-violet-200 bg-violet-50 px-4 py-3 text-left text-sm font-medium text-violet-800 hover:border-violet-300"
+          >
+            {COPY.persona.options.sppg_operator}
           </button>
         </div>
       </div>
