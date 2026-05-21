@@ -55,3 +55,6 @@ submission-bundle/
 *.tar.gz
 *.zip
 .playwright-mcp/
+
+.sisyphus/
+.opencode/
