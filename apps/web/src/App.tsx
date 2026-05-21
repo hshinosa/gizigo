@@ -33,7 +33,7 @@ export default function App() {
   const [perturbations, setPerturbations] = useState<Perturbation[]>([]);
   const [costDelta, setCostDelta] = useState(0);
   const [drawerPlan, setDrawerPlan] = useState<Plan | null>(null);
-  const [drawerMeals, setDrawerMeals] = useState<{ meal_slot: string; title: string; description_id: string }[]>([]);
+  const [drawerMeals, setDrawerMeals] = useState<{ meal_slot: string; title: string; description: string }[]>([]);
 
   const runOptimize = useCallback(async () => {
     setStatus("loading");
@@ -42,7 +42,7 @@ export default function App() {
       setResponse(result);
       if (result.infeasibility && result.plans.length === 0) {
         setStatus("infeasible");
-        toast.warning("Anggaran belum mencukupi.", {
+        toast.warning("Budget is not yet sufficient.", {
           description: result.infeasibility.message,
         });
       } else if (result.infeasibility) {
@@ -200,7 +200,7 @@ export default function App() {
                 ))}
               </div>
               <div className="text-xs text-slate-400 text-right">
-                request {response.request_id} · catalog {response.catalog_hash.slice(0, 8)} · solved in {response.elapsed_ms} ms · {fmtIDR(orderedPlans[0]?.total_cost_idr ?? 0)} terendah
+                request {response.request_id} · catalog {response.catalog_hash.slice(0, 8)} · solved in {response.elapsed_ms} ms · {fmtIDR(orderedPlans[0]?.total_cost_idr ?? 0)} cheapest
               </div>
             </>
           )}

@@ -65,9 +65,9 @@ ingredient_overrides:
   tkpi_KR010: goreng
 
 verb_templates:
-  tumis: "Tumis {ingredients} dengan sedikit minyak hingga matang merata, bumbui sesuai selera."
-  rebus: "Rebus {ingredients} dalam air mendidih hingga lunak, tiriskan."
-  kukus: "Kukus {ingredients} sekitar 15 menit hingga matang."
-  goreng: "Goreng {ingredients} hingga kecokelatan, angkat dan tiriskan."
-  sangrai: "Sangrai {ingredients} di wajan kering dengan api kecil hingga harum."
-  mentah: "Sajikan {ingredients} dalam keadaan segar, cuci bersih sebelum dikonsumsi."
+  tumis: "Stir-fry {ingredients} with a small amount of oil until evenly cooked, season to taste."
+  rebus: "Boil {ingredients} in boiling water until tender, then drain."
+  kukus: "Steam {ingredients} for about 15 minutes until cooked through."
+  goreng: "Fry {ingredients} until golden brown, remove and drain."
+  sangrai: "Pan-roast {ingredients} in a dry pan over low heat until fragrant."
+  mentah: "Serve {ingredients} fresh; wash thoroughly before eating."

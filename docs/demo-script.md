@@ -1,102 +1,156 @@
-# Demo Script (3-minute video)
+# Demo Script (≤ 3-minute video, captions-only)
 
 Live URL: **https://gizigo.jmola.my.id**
-Code: **(repo URL)** — public on submission.
+Code: **(repo URL — pasted into Devpost when public)**
 
-The video must run **between 2:00 and 3:00 minutes** to fit Devpost's 2-5 minute window comfortably while staying engaging. Aspect ratio: 1920×1080 H.264, ≤ 200 MB.
+Target: 1920×1080 H.264, ≤ 200 MB, captions-only (no voiceover), runs muted on Devpost preview.
 
 ---
 
-## Shot 1 — Hero hook (0:00 → 0:15)
+## Recording plan
 
-**On-screen**: Title card
+Six shots, each with a caption that appears as on-screen text. Caption font: any clean sans (Plus Jakarta Sans, Inter, or system-ui). Caption position: lower-third, semi-transparent dark backdrop.
 
-> "GiziGo
-> Operations-research meal planning against Indonesian childhood stunting.
-> 21.6 % of children under five — RPJMN target 14 %."
+### Shot 1 — Hero hook (0:00 → 0:15)
 
-**Voiceover**:
+**Caption (visible 4 s, then fade)**
 
-> "21.6 % of Indonesian children under five are stunted. Most of those families don't lack knowledge — they lack a way to turn whatever budget they have today into the most nutritious plate they can buy. That is what GiziGo solves."
+> Indonesia: 21.6 % of children under five are stunted (SSGI 2024).
+> RPJMN target by 2029: 14 %.
+> Most families don't lack knowledge — they lack a way to turn today's budget into the most nutritious plate.
 
-## Shot 2 — Persona 1 (Bu Sari, feasible) (0:15 → 1:00)
+**On-screen**: blank green background → fade to live app.
 
-**Action**:
+### Shot 2 — Persona 1 / Bu Sari (0:15 → 1:00)
+
+**Action sequence**:
+
 1. Open https://gizigo.jmola.my.id
-2. Click the **"Keluarga Bu Sari (4 anggota, Rp 60k)"** persona chip.
-3. Pause one beat — pan over the form to show the four members and budget.
-4. Click **"Hitung Rencana"**.
-5. Three plan cards appear within 1 second.
+2. Click the **"Bu Sari's Family (4 members, Rp 60k/day)"** persona chip.
+3. Slow pan over the four-member form so the AKG categories are readable.
+4. Click **"Calculate Plan"**.
+5. Three plan cards render in under a second.
 
-**Voiceover**:
+**Captions** (one at a time, each on screen ~5 s):
 
-> "Bu Sari's family — her husband, herself nursing a baby, a 5-year-old, and a toddler — has 60 thousand Rupiah a day. We pick the persona, hit *Hitung*, and within a second the optimizer returns three plans: cheapest, balanced, and most varied. The cheapest covers all eight tracked AKG nutrients within Rp 56,731 — under budget, with seven different food groups."
+> Bu Sari, husband, lactating mother, child 5 yrs, toddler. Rp 60,000 a day.
 
-**On-screen highlight**: The 8 AKG bars on each PlanCard, each ≥ 100 %.
+> ILP solver: PuLP + CBC. Three optimal plans. Less than a second.
 
-## Shot 3 — Sensitivity slider (1:00 → 1:30)
+> All eight tracked AKG nutrients hit at Rp 56,731. Under budget, seven food groups.
+
+### Shot 3 — Sensitivity slider (1:00 → 1:30)
 
 **Action**:
-1. Click **"Cabai +50%"** preset chip.
-2. The badge updates with `Δ Biaya: +Rp ...`.
-3. Slide the global percentage slider from 0 to +50 %, then back to -10 %.
+1. Click the **"Chili +50%"** preset chip.
+2. The cost-delta pill updates.
+3. Drag the global slider from 0 % → +50 % → -10 %.
 4. Pause on the new total.
 
-**Voiceover**:
+**Captions**:
 
-> "What happens when chili prices jump 50 %? GiziGo re-solves the entire LP under the new prices. The new total appears in real time — not a linear extrapolation, an *actual re-optimisation*. Slide back, prices return, plans return."
+> What if chili prices jump 50 %? Full LP re-solve, not extrapolation.
 
-## Shot 4 — Persona 2 (Anggaran Ekstrem, infeasible) (1:30 → 2:15)
+> Cost delta is the actual new optimum.
 
-**Action**:
-1. Click the **"Anggaran Ekstrem (5 anggota, Rp 25k)"** chip.
-2. Click **Hitung Rencana**.
-3. The InfeasibilityPanel renders, showing:
-   - Anggaran minimum perkiraan: Rp 63,000
-   - Deficit nutrients: energi, protein, vitamin A, kalsium
-4. Click **"Naikkan ke anggaran minimum"**.
-5. Three plans render at the new budget.
-
-**Voiceover**:
-
-> "Now the harder case. Five-person family, Rp 25,000 a day. The optimizer runs a budget bisection and returns the truth: this budget cannot meet AKG. The minimum required is Rp 63,000, the deficit is concentrated in energy, protein, vitamin A, and calcium. One tap raises the budget — and the plans appear. That is the difference between an LLM that 'tries its best' and a linear program that *cannot lie*."
-
-## Shot 5 — Recipe drawer + close (2:15 → 2:45)
+### Shot 4 — Persona 2 / Extreme Budget (1:30 → 2:15)
 
 **Action**:
-1. Click **"Lihat Resep"** on the *Paling Seimbang* card.
-2. The drawer slides in showing meal-by-meal narration.
+1. Click the **"Extreme Budget (5 members, Rp 25k/day)"** chip.
+2. Click **Calculate Plan**.
+3. The InfeasibilityPanel renders:
+   - Estimated minimum budget: **Rp 57,000-63,000** (depending on persona shape)
+   - Deficits: energy, protein, vitamin A, calcium
+4. Click **"Raise to minimum budget"**.
+5. Plans appear at the new budget.
+
+**Captions**:
+
+> Five-person family, Rp 25,000. Optimizer runs a budget bisection.
+
+> Honest answer: this budget cannot meet AKG. Minimum is the value shown.
+
+> One tap raises to the minimum. The LP cannot lie about feasibility.
+
+### Shot 5 — Recipe drawer (2:15 → 2:45)
+
+**Action**:
+1. Click **"Recipe"** on the *Most Balanced* card.
+2. Drawer slides in showing meal-by-meal narration (Breakfast / Lunch / Dinner / Snack).
 3. Press ESC to close.
 
-**Voiceover**:
+**Captions**:
 
-> "Each plan opens into a meal-by-meal recipe — sarapan, makan siang, makan malam, kudapan — generated from a hand-curated cooking-method map. That keeps the demo deterministic and the gram counts honest. An LLM path exists behind a feature flag, with a post-render validator that rejects any narration that drifts from the optimizer's gram amounts."
+> Each plan opens into recipes. Cooking methods come from a hand-curated YAML.
 
-## Shot 6 — Architecture and close (2:45 → 3:00)
+> Optional LLM path exists, gated by a validator that re-extracts grams. Default off, deterministic.
 
-**On-screen**: A clean architecture diagram (web → FastAPI → Postgres + ILP).
+### Shot 6 — Architecture and close (2:45 → 3:00)
 
-**Voiceover**:
+**On-screen**: cut to `docs/architecture.svg`.
 
-> "Built solo over a 36-hour hackathon. FastAPI plus PuLP plus CBC behind a Vite React app, all live at gizigo.jmola.my.id. Code on GitHub, README maps directly to the rubric. Thank you."
+**Caption**:
+
+> FastAPI + PuLP + CBC, Vite + React 18 + Tailwind. Live at gizigo.jmola.my.id.
+
+> Built solo over a 36-hour hackathon. Code on GitHub. Thank you.
 
 ---
 
-## Recording checklist
+## OBS configuration (recommended)
 
-- [ ] OBS scene at 1920×1080, 30 fps, H.264, AAC audio at 192 kbps
-- [ ] Browser zoomed to 110 % so AKG numbers are readable
-- [ ] Hide bookmarks bar, switch to a clean profile
-- [ ] DevTools closed
-- [ ] Cursor visible, click highlight enabled
-- [ ] Voiceover recorded separately, mixed in post (Audacity)
-- [ ] Background noise gate at -30 dB
+**Scene Setup**
+
+- Source 1: **Window Capture** → your browser window.
+- Source 2: **Image Source** → `docs/architecture.svg` (only enabled for shot 6).
+- Source 3: **Text (FreeType 2)** for the captions, parented to a 50 % opacity black `#000000A0` rectangle behind it (lower-third, height ~100 px).
+
+**Output Settings**
+- Output mode: **Advanced**
+- Encoder: **x264** (or **Apple VT H.264** on macOS for hardware accel).
+- Rate control: **CRF 22**.
+- Keyframe interval: 2.
+- Profile: **high**, tune: **none**.
+- Format: **MKV** (recover from crashes), then convert.
+
+**Video Settings**
+- Base & Output Resolution: **1920×1080**.
+- FPS: **30**.
+
+**Recording flow**
+1. Start a fresh browser profile (no extensions, no toolbars).
+2. Zoom to **110 %** so the AKG bars are readable.
+3. Hide bookmarks bar (Cmd+Shift+B).
+4. Run a warm-up `curl https://gizigo.jmola.my.id/v1/health` so the catalog is in cache.
+5. Start the OBS recording, perform the six shots in order, stop when shot 6 finishes.
+6. Caption text gets toggled on/off via the Source visibility hotkey between shots.
 
 ## Render and upload
 
+Convert MKV → MP4 with libx264 (faststart for streaming previews):
+
 ```bash
-ffmpeg -i raw.mkv -c:v libx264 -preset slow -crf 22 -c:a aac -b:a 192k \
-       -movflags +faststart gizigo-demo.mp4
+ffmpeg -i raw.mkv \
+       -c:v libx264 -preset slow -crf 22 \
+       -an \
+       -movflags +faststart \
+       gizigo-demo.mp4
 ```
 
-Target file size: **40-80 MB** (well under the Devpost 200 MB cap). Upload to YouTube as **Unlisted**, paste the URL into the Devpost submission. Keep the source `.mkv` archived locally in case we re-cut.
+Target file size: **30-60 MB** (well under the Devpost 200 MB cap). `-an` strips any silent audio track.
+
+**Upload**: YouTube as **Unlisted**. Paste the URL into the Devpost submission body. Keep `raw.mkv` archived locally for re-cuts.
+
+## Pre-flight checklist
+
+- [ ] Browser at 110 % zoom, 1920×1080 viewport
+- [ ] DevTools closed
+- [ ] No notifications visible
+- [ ] `/v1/health` warmed (catalog loaded)
+- [ ] OBS scene tested with one short take
+- [ ] Captions tested for readability over green and amber backgrounds
+- [ ] All six shots rehearsed at least once
+
+## Last-resort fallback
+
+If recording goes sideways, the code-side ship is still complete: live URL, README with screenshots, all docs, and the OpenSpec change. A static submission with no video will still hit *Innovation & Creativity*; the video boosts *Presentation and Documentation*.

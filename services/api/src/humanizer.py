@@ -13,10 +13,19 @@ from .models import IngredientUse, MealNarration, Plan
 logger = logging.getLogger("gizigo.humanizer")
 
 MEAL_TITLE: dict[str, str] = {
-    "sarapan": "Sarapan",
-    "makan_siang": "Makan Siang",
-    "makan_malam": "Makan Malam",
-    "kudapan": "Kudapan",
+    "sarapan": "Breakfast",
+    "makan_siang": "Lunch",
+    "makan_malam": "Dinner",
+    "kudapan": "Snack",
+}
+
+METHOD_TITLE: dict[str, str] = {
+    "tumis": "Stir-fry",
+    "rebus": "Boil",
+    "kukus": "Steam",
+    "goreng": "Fry",
+    "sangrai": "Pan-roast",
+    "mentah": "Fresh",
 }
 
 
@@ -35,15 +44,16 @@ def _humanize_one(meal_slot: str, items: list[IngredientUse], cooking_method: di
         method_count[method] = method_count.get(method, 0) + 1
     method = max(method_count.items(), key=lambda kv: kv[1])[0] if method_count else "tumis"
 
-    template = verb_templates.get(method, "Olah {ingredients} secukupnya.")
+    template = verb_templates.get(method, "Prepare {ingredients} as desired.")
     rendered = ", ".join(_format_ingredient(u) for u in items)
     description = template.format(ingredients=rendered)
     title_prefix = MEAL_TITLE.get(meal_slot, meal_slot.capitalize())
+    method_title = METHOD_TITLE.get(method, method.capitalize())
 
     return MealNarration(
         meal_slot=cast("Literal['sarapan', 'makan_siang', 'makan_malam', 'kudapan']", meal_slot),
-        title=f"{title_prefix}: {method.capitalize()}",
-        description_id=description,
+        title=f"{title_prefix}: {method_title}",
+        description=description,
         rendered_via="templated",
     )
 
@@ -69,10 +79,10 @@ def _llm_generate(slot: str, items: list[IngredientUse]) -> str | None:
         return None
     try:
         prompt = (
-            "Tuliskan narasi singkat (max 30 kata, bahasa Indonesia) untuk "
-            f"sajian {MEAL_TITLE.get(slot, slot)} dengan bahan: "
+            "Write a short narration (max 30 words, in English) for "
+            f"a {MEAL_TITLE.get(slot, slot)} dish with ingredients: "
             + ", ".join(f"{u.display_name} {round(u.grams)}g" for u in items)
-            + ". Sebutkan setiap bahan."
+            + ". Mention every ingredient by name."
         )
         with httpx.Client(timeout=8.0) as client:
             resp = client.post(
@@ -115,7 +125,7 @@ def humanize_plan(plan: Plan, use_llm: bool = False) -> list[MealNarration]:
                 out.append(MealNarration(
                     meal_slot=templated.meal_slot,
                     title=templated.title,
-                    description_id=llm_text,
+                    description=llm_text,
                     rendered_via="llm_validated",
                 ))
                 continue
@@ -123,7 +133,7 @@ def humanize_plan(plan: Plan, use_llm: bool = False) -> list[MealNarration]:
                 out.append(MealNarration(
                     meal_slot=templated.meal_slot,
                     title=templated.title,
-                    description_id=templated.description_id,
+                    description=templated.description,
                     rendered_via="llm_rejected_fallback_templated",
                 ))
                 continue

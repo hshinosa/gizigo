@@ -30,7 +30,7 @@ export function HouseholdForm({ value, onChange, onSubmit, isLoading }: Props) {
       ...value,
       members: [
         ...value.members,
-        { member_id: `m${Date.now()}`, label: `Anggota ${n}`, akg_category: "adult_male_19_49" },
+        { member_id: `m${Date.now()}`, label: `Member ${n}`, akg_category: "adult_male_19_49" },
       ],
     });
   };
@@ -165,7 +165,7 @@ export function HouseholdForm({ value, onChange, onSubmit, isLoading }: Props) {
             aria-label={COPY.budget.label}
           />
         </div>
-        <div className="text-xs text-slate-500">{fmtIDR(value.daily_budget_idr)} per hari</div>
+        <div className="text-xs text-slate-500">{fmtIDR(value.daily_budget_idr)} per day</div>
       </div>
 
       <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm space-y-3">
@@ -232,7 +232,7 @@ export function HouseholdForm({ value, onChange, onSubmit, isLoading }: Props) {
                   type="button"
                   onClick={() => removeRestriction(idx)}
                   className="text-slate-400 hover:text-red-600"
-                  aria-label="Hapus pembatasan"
+                  aria-label="Remove restriction"
                 >
                   ×
                 </button>

@@ -18,9 +18,9 @@ Indonesia's under-five stunting rate is **21.6 %** while the RPJMN 2024-2029 tar
 
 **GiziGo answers that exact question** with the discipline of an Operations Research solver. Enter your family composition (toddler, school child, lactating mother, etc.), a daily budget, your region, and any dietary restrictions. Within a second, the system returns three optimal plans:
 
-- **Termurah** — pure cost minimisation under all eight tracked AKG nutrients.
-- **Paling Seimbang** — cost plus a slack penalty so AKGs are met as evenly as possible.
-- **Paling Beragam** — an iterative-substitution heuristic that maximises distinct food groups while staying near optimal.
+- **Cheapest** — pure cost minimisation under all eight tracked AKG nutrients.
+- **Most Balanced** — cost plus a slack penalty so AKGs are met as evenly as possible.
+- **Most Varied** — an iterative-substitution heuristic that maximises distinct food groups while staying near optimal.
 
 When the budget cannot meet AKG, GiziGo runs a **bisection search on the budget** to surface the *minimum feasible budget* and the nutrient deficits, with a single CTA that raises to the minimum and re-runs the optimiser. A **sensitivity-analysis slider** re-solves the LP under perturbed prices in real time — slide chili up 50 %, watch the *actual new optimum* (not a linear extrapolation) appear.
 

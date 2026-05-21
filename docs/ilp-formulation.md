@@ -26,7 +26,7 @@ $$
 
 where $\mathrm{AKG}_n(m)$ is the value from `data/akg/permenkes-28-2019.json` for member $m$'s AKG category and nutrient $n$. The lactating-mother category already includes the 0-6 month supplement applied to the adult-female baseline.
 
-## Plan 1 — *Termurah* (Pure cost LP)
+## Plan 1 — *Cheapest* (Pure cost LP)
 
 $$
 \begin{aligned}
@@ -39,7 +39,7 @@ $$
 
 If this LP is infeasible (no allocation satisfies AKG within budget) we fall through to the infeasibility analyzer.
 
-## Plan 2 — *Paling Seimbang* (Cost + AKG slack)
+## Plan 2 — *Most Balanced* (Cost + AKG slack)
 
 $$
 \begin{aligned}
@@ -53,11 +53,11 @@ $$
 
 Slack variables $s_n$ allow controlled under-fulfillment when the AKG cannot be met cheaply, but the penalty $\alpha = 50$ makes the solver pay heavily for any slack — in practice slack only appears under genuine deficit conditions, and it is then mirrored into the achievement percentages shown in the UI.
 
-## Plan 3 — *Paling Beragam* (Heuristic on top of Termurah)
+## Plan 3 — *Most Varied* (Heuristic on top of Cheapest)
 
 This is **not** a separate ILP. It runs as a deterministic iterative-substitution heuristic:
 
-1. Start from the *Termurah* solution $g^\star$.
+1. Start from the *Cheapest* solution $g^\star$.
 2. Identify the set of food groups $G_\star$ that already appear (≥ 10 g threshold).
 3. Pick a candidate "donor" ingredient — the one with the lowest *nutrient-density-per-Rupiah* among already-used groups.
 4. Pick a candidate "acceptor" — the cheapest ingredient from a previously unused food group.
@@ -77,11 +77,11 @@ GiziGo implements sensitivity by **full ILP re-solve** under perturbed prices, n
 
 Each perturbation $\delta_i$ multiplies the price: $p_i' = p_i (1 + \delta_i / 100)$. The cost LP is re-run and the *cost delta* is reported. Latency stays under 500 ms on the demo personas.
 
-We chose re-solve over dual variables because (a) constraint shadows can change discretely once the basis flips, so duals are not safe extrapolators across large perturbations; (b) the LP is small and CBC solves Termurah from scratch in ~30-100 ms; (c) the UI is honest about *the actual new optimal*, not a linear approximation.
+We chose re-solve over dual variables because (a) constraint shadows can change discretely once the basis flips, so duals are not safe extrapolators across large perturbations; (b) the LP is small and CBC solves Cheapest from scratch in ~30-100 ms; (c) the UI is honest about *the actual new optimal*, not a linear approximation.
 
 ## Infeasibility analyzer
 
-When *Termurah* returns infeasible at the user's budget, GiziGo runs a **bisection on the budget**:
+When *Cheapest* returns infeasible at the user's budget, GiziGo runs a **bisection on the budget**:
 
 1. Try the current budget × 100 as the upper bound. If still infeasible, the deficit is structural (restrictions are too strict) — return `INFEASIBLE_RESTRICTIONS`.
 2. Otherwise bisect between 0 and 100× until the gap is below max(Rp 1.000, current_budget / 100).

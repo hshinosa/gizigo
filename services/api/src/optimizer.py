@@ -41,10 +41,10 @@ NUTRIENT_UNITS: dict[str, str] = {
     "calcium_mg": "mg",
 }
 
-PLAN_LABEL_ID: dict[str, str] = {
-    "cheapest": "Termurah",
-    "balanced": "Paling Seimbang",
-    "diverse": "Paling Beragam",
+PLAN_LABEL: dict[str, str] = {
+    "cheapest": "Cheapest",
+    "balanced": "Most Balanced",
+    "diverse": "Most Varied",
 }
 
 MEAL_SLOT_BY_GROUP: dict[str, str] = {
@@ -364,7 +364,7 @@ def analyze_infeasibility(inputs: SolverInputs) -> InfeasibilityHint | None:
         deficits = [n for n in NUTRIENT_KEYS if high.achieved[n] < requirements[n] * 0.99]
         return InfeasibilityHint(
             error_code="INFEASIBLE_RESTRICTIONS",
-            message="Pembatasan terlalu ketat sehingga tidak ada kombinasi bahan yang memenuhi AKG.",
+            message="Restrictions are too strict — no ingredient combination meets the RDA.",
             deficit_nutrients=deficits,
         )
 
@@ -395,7 +395,7 @@ def analyze_infeasibility(inputs: SolverInputs) -> InfeasibilityHint | None:
     deficits = [n for n in NUTRIENT_KEYS if high.achieved[n] < requirements[n]]
     return InfeasibilityHint(
         error_code="INFEASIBLE_BUDGET_TOO_LOW",
-        message=f"Anggaran terlalu rendah. Minimum perkiraan Rp {minimum:,}.".replace(",", "."),
+        message=f"Budget too low. Estimated minimum Rp {minimum:,}.".replace(",", "."),
         minimum_feasible_budget_idr=minimum,
         deficit_nutrients=deficits,
     )
@@ -446,7 +446,7 @@ def to_plan(
 
     return Plan(
         plan_type=cast("PlanType", plan_type),
-        plan_label_id=PLAN_LABEL_ID[plan_type],
+        plan_label=PLAN_LABEL[plan_type],
         status=result.status,
         total_cost_idr=round(result.total_cost_idr, 0),
         ingredients=ingredients_used,

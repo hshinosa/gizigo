@@ -47,7 +47,7 @@ export function PlanCard({ plan, onOpenDrawer }: Props) {
       <header className="px-5 py-4 flex items-start justify-between gap-3">
         <div>
           <h3 className={cn("text-lg font-semibold", ACCENT_TEXT[plan.plan_type])}>
-            {plan.plan_label_id}
+            {plan.plan_label}
           </h3>
           <div className="mt-1 flex items-center gap-2 text-xs text-slate-600">
             <span>{COPY.plans.foodGroupCount(plan.food_group_count)}</span>
@@ -68,7 +68,7 @@ export function PlanCard({ plan, onOpenDrawer }: Props) {
             onClick={() => onOpenDrawer(plan)}
             className="shrink-0 inline-flex items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm border border-slate-200 hover:border-brand-300 whitespace-nowrap"
           >
-            <Soup className="h-3.5 w-3.5" /> Resep
+            <Soup className="h-3.5 w-3.5" /> Recipe
           </button>
         )}
       </header>
@@ -100,7 +100,7 @@ export function PlanCard({ plan, onOpenDrawer }: Props) {
         onClick={() => setExpanded((v) => !v)}
         className="w-full px-5 py-2 flex items-center justify-between border-t border-slate-100 text-xs text-slate-600 hover:bg-slate-50"
       >
-        <span>{plan.ingredients.length} bahan</span>
+        <span>{plan.ingredients.length} ingredients</span>
         {expanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
       </button>
 

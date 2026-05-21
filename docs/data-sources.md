@@ -33,7 +33,7 @@ Each YAML row carries `name` and `price_per_100g_idr` for traceability. Prices u
 
 ## 4. Substitution graph
 
-[`data/substitutes.yaml`](../data/substitutes.yaml) — 32 hand-curated swap pairs grouped by nutritional similarity (tempe ↔ tahu, bayam ↔ kangkung, ubi jalar oranye ↔ wortel for vitamin A, etc.). Used by the *Paling Beragam* heuristic to pick acceptors when reallocating spend.
+[`data/substitutes.yaml`](../data/substitutes.yaml) — 32 hand-curated swap pairs grouped by nutritional similarity (tempe ↔ tofu, spinach ↔ water spinach, orange sweet potato ↔ carrot for vitamin A, etc.). Used by the *Most Varied* heuristic to pick acceptors when reallocating spend.
 
 ## 5. Cooking-method mapping
 

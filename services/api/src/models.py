@@ -81,7 +81,7 @@ class NutrientAchievement(StrictModel):
 
 class Plan(StrictModel):
     plan_type: PlanType
-    plan_label_id: str
+    plan_label: str
     status: SolveStatus
     total_cost_idr: float
     ingredients: list[IngredientUse]
@@ -134,7 +134,7 @@ class HumanizeRequest(StrictModel):
 class MealNarration(StrictModel):
     meal_slot: Literal["sarapan", "makan_siang", "makan_malam", "kudapan"]
     title: str
-    description_id: str
+    description: str
     rendered_via: Literal["templated", "llm_validated", "llm_rejected_fallback_templated"]
 
 

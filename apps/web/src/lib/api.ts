@@ -21,7 +21,7 @@ async function request<T>(path: string, init: RequestInit, validator: (v: unknow
     response = await fetch(`${BASE}${path}`, init);
   } catch {
     throw new ApiClientError(
-      "Tidak dapat menghubungi server. Periksa koneksi Anda.",
+      "Cannot reach the server. Please check your connection.",
       "NETWORK_ERROR",
       "n/a",
       null,
@@ -50,7 +50,7 @@ async function request<T>(path: string, init: RequestInit, validator: (v: unknow
       );
     }
     throw new ApiClientError(
-      "Terjadi kesalahan di server.",
+      "An error occurred on the server.",
       "UNKNOWN_ERROR",
       response.headers.get("x-request-id") ?? "n/a",
       parsed,
@@ -79,12 +79,12 @@ export async function sensitivity(
   }, (v) => SensitivityResponseZ.parse(v));
 }
 
-export async function humanize(plan: Plan, useLlm = false): Promise<{ meals: { meal_slot: string; title: string; description_id: string }[] }> {
+export async function humanize(plan: Plan, useLlm = false): Promise<{ meals: { meal_slot: string; title: string; description: string }[] }> {
   return request("/v1/humanize", {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ plan, use_llm: useLlm }),
-  }, (v) => v as { meals: { meal_slot: string; title: string; description_id: string }[] });
+  }, (v) => v as { meals: { meal_slot: string; title: string; description: string }[] });
 }
 
 export { ApiClientError };

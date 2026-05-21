@@ -87,7 +87,7 @@ export function SensitivityBar({ costDelta, perturbations, onChange, onPreset }:
 
       {perturbations.length > 0 && (
         <div className="mt-3 text-xs text-slate-500">
-          {perturbations.length} bahan dimodifikasi · cost delta {fmtIDR(Math.abs(costDelta))}
+          {perturbations.length} ingredient{perturbations.length === 1 ? '' : 's'} modified · cost delta {fmtIDR(Math.abs(costDelta))}
         </div>
       )}
     </section>

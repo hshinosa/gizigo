@@ -7,7 +7,7 @@
 
 ![GiziGo plan cards](docs/screenshots/02-bu-sari-success.png)
 
-GiziGo turns every Rupiah of household food budget into the *most nutritious* daily meal plan it can buy. The user enters the family composition (toddlers, school children, lactating mothers, etc.), a daily budget, region, and any dietary restrictions. In under a second the service returns three optimal plans (Termurah / Paling Seimbang / Paling Beragam), each with a per-nutrient AKG achievement bar, a sensitivity-analysis slider, and an infeasibility coach when the budget cannot meet the family's nutritional minimums.
+GiziGo turns every Rupiah of household food budget into the *most nutritious* daily meal plan it can buy. The user enters the family composition (toddlers, school children, lactating mothers, etc.), a daily budget, region, and any dietary restrictions. In under a second the service returns three optimal plans (Cheapest / Most Balanced / Most Varied), each with a per-nutrient AKG achievement bar, a sensitivity-analysis slider, and an infeasibility coach when the budget cannot meet the family's nutritional minimums.
 
 The work is grounded in two government data sources:
 
@@ -47,9 +47,9 @@ The optimizer is a **deterministic linear program**, not a chatbot. We chose the
 
 | Plan | Objective | Method |
 |---|---|---|
-| **Termurah** | `min Σ price·grams` | Pure cost LP |
-| **Paling Seimbang** | `min Σ (price·grams) + 50 · Σ slack_n` | Weighted-sum LP with slack ≥ AKG_n − achieved_n |
-| **Paling Beragam** | Maximise distinct food groups while staying near optimal | Iterative-substitution heuristic on top of *Termurah* |
+| **Cheapest** | `min Σ price·grams` | Pure cost LP |
+| **Most Balanced** | `min Σ (price·grams) + 50 · Σ slack_n` | Weighted-sum LP with slack ≥ AKG_n − achieved_n |
+| **Most Varied** | Maximise distinct food groups while staying near optimal | Iterative-substitution heuristic on top of *Cheapest* |
 
 When no feasible solution exists at the user's budget, GiziGo runs a **bisection search on the budget** to estimate the *minimum feasible budget*, then reports the deficit nutrients and offers a one-click "raise to minimum" action — turning a frustrating "no answer" into actionable guidance.
 
@@ -64,13 +64,13 @@ A full mathematical formulation lives in [`docs/ilp-formulation.md`](docs/ilp-fo
 | Track | How GiziGo fits |
 |---|---|
 | **Best HealthTech Project** | Direct attack on stunting via personalized AKG planning grounded in Permenkes 28/2019 |
-| **Best Social Impact** | Targets a 21.6 % national stunting rate; UI copy in Bahasa Indonesia for the actual user base |
+| **Best Social Impact** | Targets a 21.6 % national stunting rate; UI in English with two demo personas anchored in real Indonesian household profiles |
 | **Top 3 Grand** | Operations-research depth (ILP + sensitivity + bisection) plus a polished, end-to-end live deployment |
 
 ## Two demo personas
 
-1. **Keluarga Bu Sari** — ayah (19-49), ibu menyusui, anak 5 thn, balita. Budget Rp 60.000/hari, region DKI Jakarta. Optimizer returns Rp 56.731 across 7 food groups, all eight AKG nutrients ≥ 100 %.
-2. **Anggaran Ekstrem** — 5-anggota keluarga, region Median Nasional, budget Rp 25.000/hari. Optimizer returns *infeasible*, surfaces the minimum estimated budget at Rp 63.000, and lists the deficit nutrients (energi, protein, vitamin A, kalsium).
+1. **Bu Sari's Family** — father (19-49), Bu Sari (lactating mother), child 5 yrs, toddler. Rp 60,000/day, region DKI Jakarta. Optimizer returns Rp 56,731 across 7 food groups, all eight AKG nutrients ≥ 100 %.
+2. **Extreme Budget** — 5-member household, region National Median, Rp 25,000/day. Optimizer returns *infeasible*, surfaces the minimum estimated budget at Rp 57,000-63,000 (depending on persona shape), and lists the deficit nutrients (energy, protein, vitamin A, calcium).
 
 Both personas are baked into the UI as one-click chips so the judge can reproduce them in 2 seconds.
 
@@ -123,7 +123,7 @@ Every dataset is committed to the repo so the build is reproducible without re-h
 
 - The price tables are a **manually curated 40-ingredient subset** sampled May 2026 from infopangan.jakarta.go.id and PIHPS Bank Indonesia. The optimizer would scale to the full 1,146-ingredient catalog as soon as more prices are filled in.
 - The cooking-method humanizer is **template-driven** by default. An optional LLM path exists behind the `HUMANIZER_LLM_ENABLED` flag with a post-render validator that re-extracts ingredient grams; if drift > 5 %, the LLM output is discarded and the templated path is used. The default is off so the demo stays deterministic.
-- The "Paling Beragam" plan is a deterministic iterative-substitution heuristic on top of "Termurah", not a separate ILP. When variety target cannot be reached without violating AKG or budget, the plan is flagged with a `diverse_constraint_relaxed` badge and the reason is shown to the user.
+- The "Most Varied" plan is a deterministic iterative-substitution heuristic on top of "Cheapest", not a separate ILP. When the variety target cannot be reached without violating AKG or budget, the plan is flagged with a `diverse_constraint_relaxed` badge and the reason is shown to the user.
 
 ## Credits
 

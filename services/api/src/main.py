@@ -89,7 +89,7 @@ async def validation_handler(request: Request, exc: ValidationError) -> JSONResp
         status_code=422,
         content=ApiError(
             error_code="VALIDATION_ERROR",
-            message="Input tidak valid. Periksa kembali isian Anda.",
+            message="Invalid input. Please review your fields.",
             request_id=request_id,
             details={"errors": exc.errors()},
         ).model_dump(),
@@ -104,7 +104,7 @@ async def generic_handler(request: Request, exc: Exception) -> JSONResponse:
         status_code=500,
         content=ApiError(
             error_code="INTERNAL_ERROR",
-            message="Terjadi kesalahan internal. Silakan coba lagi sebentar lagi.",
+            message="An internal error occurred. Please try again shortly.",
             request_id=request_id,
         ).model_dump(),
     )

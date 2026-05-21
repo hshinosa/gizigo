@@ -69,7 +69,7 @@ export type SolveStatus = z.infer<typeof SolveStatusZ>;
 
 export const PlanZ = z.object({
   plan_type: PlanTypeZ,
-  plan_label_id: z.string(),
+  plan_label: z.string(),
   status: SolveStatusZ,
   total_cost_idr: z.number(),
   ingredients: z.array(IngredientUseZ),
