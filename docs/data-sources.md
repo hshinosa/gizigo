@@ -53,8 +53,8 @@ The current build snapshots:
 | `data/normalized/ingredients.json` | 1146 ingredients | `catalog_hash = 2c14daf9cda57500` |
 | `data/normalized/food_groups.json` | 13 distinct food groups | |
 | `data/akg/permenkes-28-2019.json` | 7 AKG categories × 8 nutrients | Permenkes 28/2019 subset |
-| `data/prices/dki_jakarta.yaml` | 68 priced ingredients | |
-| `data/prices/national_baseline.yaml` | 68 priced ingredients | |
+| `data/prices/dki_jakarta.yaml` | 105 priced ingredients | |
+| `data/prices/national_baseline.yaml` | 105 priced ingredients | |
 | `data/substitutes.yaml` | 32 entries, 40 unique IDs | |
 | `data/cooking-method.yaml` | 41 overrides + 13 group defaults | |
 | `data/validation-report.json` | 0 quarantined | |

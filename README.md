@@ -87,11 +87,13 @@ GiziGo answers that question quantitatively. For a single primary-school child (
 
 | Plan | Cost | Result |
 |---|---|---|
-| Cheapest | **Rp 4,453** | All 8 AKG nutrients ≥ 100 % |
-| Most Balanced | **Rp 4,172** | All 8 AKG nutrients ≥ 100 % |
-| Most Varied | **Rp 4,453** | 3 distinct food groups |
+| Cheapest | **Rp 9,472** | All 8 AKG nutrients ≥ 100 % across 5 food groups |
+| Most Balanced | **Rp 9,472** | LP collapses to the same global optimum (mathematically honest) |
+| Most Varied | **Rp 9,472** | Same 5-group spread; the heuristic does not invent variety where the budget already allocates optimally |
 
-**The headline finding**: the MBG per-portion budget of Rp 10-12k has substantial *headroom* over the optimizer-derived AKG floor of Rp 4-5k for primary-age children — provided procurement is optimized. GiziGo can therefore serve SPPG (*Satuan Pelayanan Pemenuhan Gizi*, the program's local kitchen units) as a deterministic audit and procurement-planning layer:
+**The headline finding**: the MBG per-portion budget of Rp 10-12k has only ~Rp 500-3,000 of headroom over the optimizer-derived AKG floor of Rp 9,472 for primary-age children. That is much narrower than press estimates and matches the public concern that the budget is *just* sufficient when procurement is optimized — and infeasible otherwise.
+
+GiziGo can therefore serve SPPG (*Satuan Pelayanan Pemenuhan Gizi*, the program's local kitchen units) as a deterministic audit and procurement-planning layer:
 
 - Plug in the actual local prices each SPPG faces and verify that the menu they propose meets AKG.
 - Plug in the budget envelope and let the optimizer return the cheapest AKG-compliant ingredient mix.
@@ -148,7 +150,7 @@ Every dataset is committed to the repo so the build is reproducible without re-h
 
 ## Limitations and honest disclosure
 
-- The price tables are a **manually curated 68-ingredient subset** sampled May 2026 from infopangan.jakarta.go.id and PIHPS Bank Indonesia. The optimizer would scale to the full 1,146-ingredient catalog as soon as more prices are filled in.
+- The price tables are a **manually curated 105-ingredient subset** sampled May 2026 from infopangan.jakarta.go.id and PIHPS Bank Indonesia. The optimizer would scale to the full 1,146-ingredient catalog as soon as more prices are filled in.
 - The cooking-method humanizer is **template-driven** by default. An optional LLM path exists behind the `HUMANIZER_LLM_ENABLED` flag with a post-render validator that re-extracts ingredient grams; if drift > 5 %, the LLM output is discarded and the templated path is used. The default is off so the demo stays deterministic.
 - The "Most Varied" plan is a deterministic iterative-substitution heuristic on top of "Cheapest", not a separate ILP. When the variety target cannot be reached without violating AKG or budget, the plan is flagged with a `diverse_constraint_relaxed` badge and the reason is shown to the user.
 
