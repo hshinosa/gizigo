@@ -9,8 +9,8 @@ Writes:
   data/normalized/food_groups.json     - food group code mapping
   data/validation-report.json          - quarantined rows + reasons
 
-The eight tracked nutrients (energy_kcal, protein_g, fat_g, carbohydrate_g,
-iron_mg, zinc_mg, vitamin_a_ug_rae, calcium_mg) MUST be present and
+The nine tracked nutrients (energy_kcal, protein_g, fat_g, carbohydrate_g,
+fiber_g, iron_mg, zinc_mg, vitamin_a_ug_rae, calcium_mg) MUST be present and
 non-negative; rows missing any are quarantined.
 """
 from __future__ import annotations
@@ -33,6 +33,7 @@ NUTRIENT_PATTERNS: dict[str, tuple[str, str]] = {
     "protein_g": (r"^Protein", "g"),
     "fat_g": (r"^Lemak", "g"),
     "carbohydrate_g": (r"^Karbohidrat", "g"),
+    "fiber_g": (r"^Serat", "g"),
     "calcium_mg": (r"Kalsium", "mg"),
     "iron_mg": (r"^Besi", "mg"),
     "zinc_mg": (r"^Seng", "mg"),

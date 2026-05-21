@@ -11,7 +11,7 @@ GiziGo turns every Rupiah of household food budget into the *most nutritious* da
 
 The work is grounded in two government data sources:
 
-- **Tabel Komposisi Pangan Indonesia 2020** (Direktorat Gizi Masyarakat, Kemenkes RI) — 1,146 ingredients with eight tracked nutrients each.
+- **Tabel Komposisi Pangan Indonesia 2020** (Direktorat Gizi Masyarakat, Kemenkes RI) — 1,146 ingredients with nine tracked nutrients each (energy, protein, fat, carbohydrate, **fiber**, iron, zinc, vitamin A, calcium).
 - **Permenkes 28/2019** — the Angka Kecukupan Gizi standard for seven AKG categories that cover both demo personas.
 
 ## Why this matters
@@ -93,7 +93,7 @@ GiziGo answers that question quantitatively. For a single primary-school child (
 
 **The headline finding**: the MBG per-portion budget of Rp 10-12k has only ~Rp 500-3,000 of headroom over the optimizer-derived AKG floor of Rp 9,472 for primary-age children. That is much narrower than press estimates and matches the public concern that the budget is *just* sufficient when procurement is optimized — and infeasible otherwise.
 
-For Bu Sari's family at Rp 60k/day, the same three-plan output produces *visibly different* meals: Cheapest Rp 57,936 / 6 groups, Most Balanced Rp 60,000 / 8 groups (over-shoot smoothed), Most Varied Rp 60,000 / **11 groups, 14 ingredients**. The screenshot above shows the iron achievement bar dropping from 221% to 185% to 215% across the three plans — that is the LP penalty literally pulling the over-shoot down.
+For Bu Sari's family at Rp 65k/day, the same three-plan output produces *visibly different* meals: Cheapest Rp 60,534 / 7 groups / 9 ingredients, Most Balanced Rp 65,000 / 7 groups / 7 ingredients (over-shoot smoothed), Most Varied Rp 63,560 / **11 groups, 12 ingredients**. Each plan card surfaces a 9-bar AKG achievement strip — including **fiber**, an under-tracked nutrient that the program-level MBG KPI itself does not surface. The AKG floor was bumped from Rp 60k to Rp 65k after fiber was added: at Rp 60k the LP became infeasible by Rp 533, exactly the kind of constraint a chatbot would not catch.
 
 GiziGo can therefore serve SPPG (*Satuan Pelayanan Pemenuhan Gizi*, the program's local kitchen units) as a deterministic audit and procurement-planning layer:
 
@@ -137,7 +137,7 @@ Every dataset is committed to the repo so the build is reproducible without re-h
 ├── data/
 │   ├── raw/panganku/      ~1146 raw HTML detail pages, committed
 │   ├── normalized/        ingredients.json, food_groups.json
-│   ├── akg/               permenkes-28-2019.json (7 AKG categories)
+│   ├── akg/               permenkes-28-2019.json (14 AKG categories × 9 nutrients)
 │   ├── prices/            dki_jakarta.yaml + national_baseline.yaml
 │   ├── substitutes.yaml
 │   └── cooking-method.yaml

@@ -7,7 +7,7 @@ GiziGo is grounded in two public Indonesian government sources plus a small, han
 - **Upstream**: *Tabel Komposisi Pangan Indonesia 2020* — Direktorat Gizi Masyarakat, Kementerian Kesehatan RI. ISBN 978-623-301-0368. The authoritative national food-composition table.
 - **Retrieval channel**: https://www.panganku.org/id-ID/semua_nutrisi (catalog, GET) + https://www.panganku.org/id-ID/view (detail, POST `haha=<food_code>`). panganku.org is the Kemenkes-affiliated portal that re-publishes TKPI for end users.
 - **Method**: One-shot scrape via `services/api/scripts/scrape_panganku.py`. Polite 0.3 s delay between requests, identifying User-Agent. The full ~1146 detail pages plus the catalog HTML are committed under [`data/raw/panganku/`](../data/raw/panganku/). Re-running the scraper is idempotent: existing files are not re-fetched.
-- **Normalization**: `services/api/scripts/normalize_panganku.py` parses the eight tracked nutrients per 100 g of edible portion. When a nutrient row is absent in the upstream HTML, we treat it as 0 (this is consistent with how TKPI itself omits zero-value nutrients on many entries — e.g. white rice has no listed vitamin A).
+- **Normalization**: `services/api/scripts/normalize_panganku.py` parses the nine tracked nutrients per 100 g of edible portion (energy, protein, fat, carbohydrate, **fiber**, iron, zinc, vitamin A, calcium). When a nutrient row is absent in the upstream HTML, we treat it as 0 (this is consistent with how TKPI itself omits zero-value nutrients on many entries — e.g. white rice has no listed vitamin A).
 - **Output**: [`data/normalized/ingredients.json`](../data/normalized/ingredients.json), 1146 ingredients, `catalog_hash = 2c14daf9cda57500`.
 - **Quarantine policy**: A row is rejected only when (a) energy or protein cannot be parsed, or (b) any value is negative. The validation report at [`data/validation-report.json`](../data/validation-report.json) currently shows zero quarantined rows.
 
@@ -52,7 +52,7 @@ The current build snapshots:
 | `data/raw/panganku/` | 1146 detail pages + index + meta | scrape took 8 min, 0 errors |
 | `data/normalized/ingredients.json` | 1146 ingredients | `catalog_hash = 2c14daf9cda57500` |
 | `data/normalized/food_groups.json` | 13 distinct food groups | |
-| `data/akg/permenkes-28-2019.json` | 7 AKG categories × 8 nutrients | Permenkes 28/2019 subset |
+| `data/akg/permenkes-28-2019.json` | 14 AKG categories × 9 nutrients | Permenkes 28/2019 Lampiran I (Tabel 1, 2, 3) |
 | `data/prices/dki_jakarta.yaml` | 105 priced ingredients | |
 | `data/prices/national_baseline.yaml` | 105 priced ingredients | |
 | `data/substitutes.yaml` | 32 entries, 40 unique IDs | |

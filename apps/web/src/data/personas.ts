@@ -10,7 +10,7 @@ export const PERSONAS: Record<PersonaId, OptimizeRequest> = {
       { member_id: "m3", label: "Aldo (5 yrs)", akg_category: "child_4_6" },
       { member_id: "m4", label: "Baby (toddler)", akg_category: "toddler_1_3" },
     ],
-    daily_budget_idr: 60000,
+    daily_budget_idr: 65000,
     region: "dki_jakarta",
     restrictions: [],
     plan_types: ["cheapest", "balanced", "diverse"],

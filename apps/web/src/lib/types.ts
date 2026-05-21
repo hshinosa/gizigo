@@ -1,13 +1,20 @@
 import { z } from "zod";
 
 export const AkgCategoryZ = z.enum([
+  "infant_7_11m",
   "toddler_1_3",
   "child_4_6",
+  "child_7_9",
   "teen_male_13_15",
   "teen_female_13_15",
+  "teen_male_16_18",
+  "teen_female_16_18",
   "adult_male_19_49",
   "adult_female_19_49",
+  "elderly_male_65_plus",
+  "elderly_female_65_plus",
   "lactating_mother_0_6m",
+  "pregnant_trimester_2_3",
 ]);
 export type AkgCategory = z.infer<typeof AkgCategoryZ>;
 

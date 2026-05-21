@@ -18,7 +18,7 @@ Indonesia's under-five stunting rate is **21.6 %** while the RPJMN 2024-2029 tar
 
 **GiziGo answers that exact question** with the discipline of an Operations Research solver. Enter your family composition (toddler, school child, lactating mother, etc.), a daily budget, your region, and any dietary restrictions. Within a second, the system returns three optimal plans:
 
-- **Cheapest** — pure cost minimisation under all eight tracked AKG nutrients.
+- **Cheapest** — pure cost minimisation under all nine tracked AKG nutrients (energy, protein, fat, carbohydrate, **fiber**, iron, zinc, vitamin A, calcium).
 - **Most Balanced** — cost plus a slack penalty so AKGs are met as evenly as possible.
 - **Most Varied** — an iterative-substitution heuristic that maximises distinct food groups while staying near optimal.
 

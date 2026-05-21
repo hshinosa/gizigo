@@ -35,6 +35,7 @@ NUTRIENT_UNITS: dict[str, str] = {
     "protein_g": "g",
     "fat_g": "g",
     "carbohydrate_g": "g",
+    "fiber_g": "g",
     "iron_mg": "mg",
     "zinc_mg": "mg",
     "vitamin_a_ug_rae": "µg RAE",

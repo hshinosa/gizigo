@@ -93,11 +93,11 @@ def test_akg_aggregator_sums_nutrients() -> None:
 
 
 def test_solve_cheapest_bu_sari_is_optimal_and_under_budget() -> None:
-    """Bu Sari (60k DKI, 4 anggota) must produce an optimal cheapest plan ≤ budget."""
-    inputs = _inputs(_bu_sari(), 60_000, region="dki_jakarta")
+    """Bu Sari (4 anggota, lactating mother, DKI) at Rp 65k must produce an optimal cheapest plan ≤ budget."""
+    inputs = _inputs(_bu_sari(), 65_000, region="dki_jakarta")
     res = solve_cheapest(inputs)
     assert res.status == "optimal"
-    assert res.total_cost_idr <= 60_000
+    assert res.total_cost_idr <= 65_000
     assert res.total_cost_idr > 0
     used = sum(1 for g in res.grams_by_ingredient.values() if g > 1.0)
     assert used >= 5
@@ -105,7 +105,7 @@ def test_solve_cheapest_bu_sari_is_optimal_and_under_budget() -> None:
 
 def test_solve_cheapest_meets_all_akg_floors() -> None:
     """Termurah is feasible only if every tracked nutrient hits the household floor."""
-    inputs = _inputs(_bu_sari(), 60_000)
+    inputs = _inputs(_bu_sari(), 65_000)
     requirements = aggregate_household_akg(
         [m.akg_category for m in inputs.members], inputs.akg
     )
@@ -119,19 +119,18 @@ def test_solve_cheapest_meets_all_akg_floors() -> None:
 
 def test_solve_balanced_cost_le_or_equal_to_cheapest_cost_plus_slack() -> None:
     """Balanced minimises cost+slack; cheapest minimises cost. Cost should be very close on feasible cases."""
-    inputs = _inputs(_bu_sari(), 60_000)
+    inputs = _inputs(_bu_sari(), 65_000)
     cheap = solve_cheapest(inputs)
     bal = solve_balanced(inputs)
     assert cheap.status == "optimal"
     assert bal.status in ("optimal", "infeasible_relaxed")
-    # The balanced plan still respects the budget.
-    assert bal.total_cost_idr <= 60_000 + 1e-3
+    assert bal.total_cost_idr <= 65_000 + 1e-3
 
 
 def test_derive_diverse_keeps_or_grows_food_group_set() -> None:
     """Diverse heuristic never reduces variety vs cheapest baseline,
     and respects the budget."""
-    inputs = _inputs(_bu_sari(), 60_000)
+    inputs = _inputs(_bu_sari(), 65_000)
     cheap = solve_cheapest(inputs)
     div, relaxed, reason = derive_diverse(cheap, inputs)
     assert isinstance(relaxed, bool)
@@ -148,7 +147,7 @@ def test_derive_diverse_keeps_or_grows_food_group_set() -> None:
         if g > 1.0 and i in eligible_by_id
     }
     assert len(div_groups) >= len(cheap_groups)
-    assert div.total_cost_idr <= 60_000 + 1e-3
+    assert div.total_cost_idr <= 65_000 + 1e-3
 
 
 def test_analyze_infeasibility_finds_minimum_budget_for_extreme_persona() -> None:

@@ -9,6 +9,7 @@ NUTRIENT_KEYS: tuple[str, ...] = (
     "protein_g",
     "fat_g",
     "carbohydrate_g",
+    "fiber_g",
     "iron_mg",
     "zinc_mg",
     "vitamin_a_ug_rae",
@@ -18,13 +19,20 @@ NUTRIENT_KEYS: tuple[str, ...] = (
 PlanType = Literal["cheapest", "balanced", "diverse"]
 RestrictionType = Literal["allergy", "religious", "dislike"]
 AkgCategory = Literal[
+    "infant_7_11m",
     "toddler_1_3",
     "child_4_6",
+    "child_7_9",
     "teen_male_13_15",
     "teen_female_13_15",
+    "teen_male_16_18",
+    "teen_female_16_18",
     "adult_male_19_49",
     "adult_female_19_49",
+    "elderly_male_65_plus",
+    "elderly_female_65_plus",
     "lactating_mother_0_6m",
+    "pregnant_trimester_2_3",
 ]
 Region = Literal["dki_jakarta", "national_baseline"]
 SolveStatus = Literal["optimal", "infeasible", "infeasible_relaxed"]

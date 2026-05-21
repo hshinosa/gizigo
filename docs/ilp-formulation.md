@@ -7,7 +7,7 @@ GiziGo's optimizer is a deterministic linear program solved by COIN-OR CBC via P
 | Symbol | Meaning |
 |---|---|
 | $I$ | Set of eligible ingredients (those priced for the chosen region and not excluded by restrictions) |
-| $N$ | Set of tracked nutrients (8 of them: energy_kcal, protein_g, fat_g, carbohydrate_g, iron_mg, zinc_mg, vitamin_a_ug_rae, calcium_mg) |
+| $N$ | Set of tracked nutrients (9 of them: energy_kcal, protein_g, fat_g, carbohydrate_g, fiber_g, iron_mg, zinc_mg, vitamin_a_ug_rae, calcium_mg) |
 | $g_i$ | Decision variable, grams of ingredient $i$ to include in the daily plan ($g_i \ge 0$) |
 | $p_i$ | Price of ingredient $i$ per 100 g, in IDR |
 | $a_{i,n}$ | Nutrient $n$ in ingredient $i$, per 100 g (units match the nutrient: kcal, g, mg, µg RAE) |
@@ -57,7 +57,7 @@ $$
 
 where $\tau = 1.3$ (over-shoot threshold of 130% RDA), $\alpha = 2.0$ (penalty weight, scaled by budget so its magnitude is comparable to cost), $o_n$ is the over-shoot in nutrient $n$ above the threshold, and $M$ is the *maximum normalised over-shoot ratio* across all nutrients. Penalising the maximum (rather than the sum) prevents the solver from trading low overshoot in one nutrient against high overshoot in another — it pushes for a *flat* nutritional profile.
 
-In practice on Bu Sari (Rp 60k DKI): cheapest gives iron 221%, balanced gives iron 185%, cost rises Rp 57,936 → Rp 60,000 (3.5% premium for nutritional smoothness).
+In practice on Bu Sari (Rp 65k DKI): cheapest is Rp 60,534, balanced is Rp 65,000 (3.5% premium for nutritional smoothness, fewer items but flatter achievement profile).
 
 ## Plan 3 — *Most Varied* (Mixed-integer program on food groups)
 
@@ -79,7 +79,7 @@ where $I_g \subseteq I$ are the ingredients in food group $g$, $\beta = 1.05$ ca
 
 CBC handles this MIP comfortably for $|G| \le 13$ food groups; runtime is sub-100 ms on the demo personas. If the cost-cap binds and no feasible integer solution exists, we re-solve once with the AKG floor relaxed to $0.95 \cdot R_n$ and emit `diverse_constraint_relaxed: true` with reason `akg_bound_violated`. The UI surfaces this as an honest amber badge — the system never lies that diversification "succeeded" when it didn't.
 
-In practice on Bu Sari: cheapest gives 6 food groups across 7 ingredients; varied gives **11 food groups across 14 ingredients** at the same Rp 60k. The trade-off (variety for a tiny cost premium of Rp 2,064) is what the LP makes possible — and what a heuristic would have to guess at.
+In practice on Bu Sari (Rp 65k DKI): cheapest gives 7 food groups across 9 ingredients; varied gives **11 food groups across 12 ingredients** at Rp 63,560 — only Rp 3k more than cheapest. The trade-off (variety for a small cost premium) is what the LP makes possible — and what a heuristic would have to guess at.
 
 ## Sensitivity analysis
 

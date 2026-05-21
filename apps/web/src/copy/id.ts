@@ -35,7 +35,7 @@ export const COPY = {
   persona: {
     label: "Demo Persona",
     options: {
-      bu_sari: "Bu Sari's Family (4 members, Rp 60k/day)",
+      bu_sari: "Bu Sari's Family (4 members, Rp 65k/day)",
       anggaran_ekstrem: "Extreme Budget (5 members, Rp 25k/day)",
       mbg_sppg: "MBG SPPG (1 student, Rp 12k/day)",
     },
@@ -65,6 +65,7 @@ export const COPY = {
       protein_g: "Protein",
       fat_g: "Fat",
       carbohydrate_g: "Carbs",
+      fiber_g: "Fiber",
       iron_mg: "Iron",
       zinc_mg: "Zinc",
       vitamin_a_ug_rae: "Vitamin A",
@@ -113,12 +114,19 @@ export const COPY = {
     kudapan: "Snack",
   } as Record<string, string>,
   akgCategoryLabel: {
+    infant_7_11m: "Infant 7-11 months",
     toddler_1_3: "Toddler 1-3 yrs",
     child_4_6: "Child 4-6 yrs",
+    child_7_9: "Child 7-9 yrs",
     teen_male_13_15: "Teen Male 13-15",
     teen_female_13_15: "Teen Female 13-15",
+    teen_male_16_18: "Teen Male 16-18",
+    teen_female_16_18: "Teen Female 16-18",
     adult_male_19_49: "Adult Male 19-49",
     adult_female_19_49: "Adult Female 19-49",
+    elderly_male_65_plus: "Elderly Male 65+",
+    elderly_female_65_plus: "Elderly Female 65+",
     lactating_mother_0_6m: "Lactating Mother (0-6m)",
+    pregnant_trimester_2_3: "Pregnant (Trimester 2-3)",
   } as Record<string, string>,
 };
