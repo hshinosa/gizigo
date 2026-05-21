@@ -1,0 +1,216 @@
+substitutes:
+  - from: tkpi_AR001
+    from_name: Beras giling (mentah)
+    to:
+      - tkpi_AP005
+      - tkpi_AR005
+    reason: Sumber karbohidrat sereal lokal alternatif
+
+  - from: tkpi_HR001
+    from_name: Telur ayam kampung segar
+    to:
+      - tkpi_HR011
+      - tkpi_HR005
+    reason: Sumber protein hewani telur alternatif
+
+  - from: tkpi_FR005
+    from_name: Ayam daging segar
+    to:
+      - tkpi_FR019
+      - tkpi_CP077
+    reason: Sumber protein hewani lain
+
+  - from: tkpi_CP077
+    from_name: Tempe kedelai murni mentah
+    to:
+      - tkpi_CP061
+      - tkpi_CR014
+    reason: Sumber protein nabati alternatif
+
+  - from: tkpi_CP061
+    from_name: Tahu mentah
+    to:
+      - tkpi_CP077
+      - tkpi_CR018
+    reason: Sumber protein nabati alternatif
+
+  - from: tkpi_DR008
+    from_name: Bayam segar
+    to:
+      - tkpi_DR100
+      - tkpi_DR042
+    reason: Sayuran hijau berdaun (vitamin A + zat besi) alternatif
+
+  - from: tkpi_DR100
+    from_name: Kangkung segar
+    to:
+      - tkpi_DR008
+      - tkpi_DR042
+    reason: Sayuran hijau berdaun alternatif
+
+  - from: tkpi_DR166
+    from_name: Wortel segar
+    to:
+      - tkpi_BR028
+      - tkpi_DR008
+    reason: Sumber vitamin A (beta-karoten) alternatif
+
+  - from: tkpi_DR042
+    from_name: Daun kol sawi segar
+    to:
+      - tkpi_DR008
+      - tkpi_DR100
+    reason: Sayuran hijau berdaun alternatif
+
+  - from: tkpi_NR014
+    from_name: Cabai merah segar
+    to:
+      - tkpi_NR015
+    reason: Cabai alternatif untuk variasi pedas
+
+  - from: tkpi_ER074
+    from_name: Pisang ambon segar
+    to:
+      - tkpi_ER088
+    reason: Buah lokal sumber kalium alternatif
+
+  - from: tkpi_BR028
+    from_name: Ubi jalar kuning segar
+    to:
+      - tkpi_DR166
+      - tkpi_ER054
+    reason: Sumber vitamin A alternatif
+
+  - from: tkpi_CR014
+    from_name: Kacang hijau kering
+    to:
+      - tkpi_CR018
+      - tkpi_CP077
+    reason: Kacang-kacangan alternatif
+
+  - from: tkpi_CR018
+    from_name: Kacang kedelai segar
+    to:
+      - tkpi_CR014
+      - tkpi_CP077
+    reason: Kacang-kacangan alternatif
+
+  - from: tkpi_FR025
+    from_name: Sapi daging kurus segar
+    to:
+      - tkpi_FR005
+      - tkpi_FR019
+    reason: Sumber protein hewani + zat besi heme alternatif
+
+  - from: tkpi_JR006
+    from_name: Susu sapi segar
+    to:
+      - tkpi_CP060
+    reason: Susu alternatif
+
+  - from: tkpi_BR016
+    from_name: Singkong segar
+    to:
+      - tkpi_BR028
+      - tkpi_BR013
+    reason: Umbi-umbian sumber karbohidrat alternatif
+
+  - from: tkpi_BR013
+    from_name: Kentang segar
+    to:
+      - tkpi_BR016
+      - tkpi_BR028
+    reason: Umbi sumber karbohidrat alternatif
+
+  - from: tkpi_ER003
+    from_name: Apel malang segar
+    to:
+      - tkpi_ER074
+      - tkpi_ER039
+    reason: Buah segar alternatif
+
+  - from: tkpi_ER073
+    from_name: Pepaya segar
+    to:
+      - tkpi_ER054
+    reason: Buah lokal sumber vitamin A alternatif
+
+  - from: tkpi_ER054
+    from_name: Mangga segar
+    to:
+      - tkpi_ER073
+      - tkpi_BR028
+    reason: Buah lokal sumber vitamin A alternatif
+
+  - from: tkpi_ER039
+    from_name: Jeruk manis segar
+    to:
+      - tkpi_ER105
+      - tkpi_ER003
+    reason: Buah sumber vitamin C alternatif
+
+  - from: tkpi_GR050
+    from_name: Ikan kembung segar
+    to:
+      - tkpi_GR070
+      - tkpi_GR007
+    reason: Ikan laut sumber protein alternatif
+
+  - from: tkpi_GR007
+    from_name: Ikan bandeng segar
+    to:
+      - tkpi_GR050
+      - tkpi_GR070
+    reason: Ikan terjangkau sumber protein
+
+  - from: tkpi_GR070
+    from_name: Ikan tongkol segar
+    to:
+      - tkpi_GR050
+      - tkpi_GR007
+    reason: Ikan sumber protein alternatif
+
+  - from: tkpi_AP005
+    from_name: Nasi beras merah
+    to:
+      - tkpi_AR001
+      - tkpi_AR005
+    reason: Beras varian alternatif
+
+  - from: tkpi_AR005
+    from_name: Beras jagung kuning
+    to:
+      - tkpi_AR001
+      - tkpi_AP005
+    reason: Sereal sumber karbohidrat alternatif
+
+  - from: tkpi_KR012
+    from_name: Minyak kelapa sawit
+    to:
+      - tkpi_KR011
+      - tkpi_KR010
+    reason: Minyak goreng alternatif
+
+  - from: tkpi_DR161
+    from_name: Tomat merah segar
+    to:
+      - tkpi_NR014
+    reason: Bahan kuah/tumis alternatif
+
+  - from: tkpi_NR007
+    from_name: Bawang merah segar
+    to:
+      - tkpi_NR008
+    reason: Bumbu dasar alternatif
+
+  - from: tkpi_NR008
+    from_name: Bawang putih segar
+    to:
+      - tkpi_NR007
+    reason: Bumbu dasar alternatif
+
+  - from: tkpi_HR011
+    from_name: Telur burung puyuh segar
+    to:
+      - tkpi_HR001
+    reason: Telur alternatif

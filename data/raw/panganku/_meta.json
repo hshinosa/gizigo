@@ -1,0 +1,9 @@
+{
+  "scrape_started_iso": "2026-05-21T09:30:09Z",
+  "scrape_finished_iso": "2026-05-21T09:38:17Z",
+  "expected": 1146,
+  "ok": 1146,
+  "errors": [],
+  "source_index_url": "https://www.panganku.org/id-ID/semua_nutrisi",
+  "source_detail_url": "https://www.panganku.org/id-ID/view"
+}

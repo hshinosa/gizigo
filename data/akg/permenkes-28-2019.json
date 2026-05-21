@@ -1,0 +1,95 @@
+{
+  "schema_version": "permenkes-28-2019.subset.v1",
+  "source": "Permenkes RI No. 28 Tahun 2019 tentang Angka Kecukupan Gizi yang Dianjurkan untuk Masyarakat Indonesia",
+  "tracked_nutrients": [
+    "energy_kcal",
+    "protein_g",
+    "fat_g",
+    "carbohydrate_g",
+    "iron_mg",
+    "zinc_mg",
+    "vitamin_a_ug_rae",
+    "calcium_mg"
+  ],
+  "categories": {
+    "toddler_1_3": {
+      "label_id": "Balita 1-3 tahun",
+      "energy_kcal": 1350,
+      "protein_g": 20,
+      "fat_g": 45,
+      "carbohydrate_g": 215,
+      "iron_mg": 7,
+      "zinc_mg": 3,
+      "vitamin_a_ug_rae": 400,
+      "calcium_mg": 650
+    },
+    "child_4_6": {
+      "label_id": "Anak 4-6 tahun",
+      "energy_kcal": 1400,
+      "protein_g": 25,
+      "fat_g": 50,
+      "carbohydrate_g": 220,
+      "iron_mg": 10,
+      "zinc_mg": 5,
+      "vitamin_a_ug_rae": 450,
+      "calcium_mg": 1000
+    },
+    "teen_male_13_15": {
+      "label_id": "Remaja Laki-laki 13-15 tahun",
+      "energy_kcal": 2400,
+      "protein_g": 70,
+      "fat_g": 80,
+      "carbohydrate_g": 350,
+      "iron_mg": 19,
+      "zinc_mg": 11,
+      "vitamin_a_ug_rae": 600,
+      "calcium_mg": 1200
+    },
+    "teen_female_13_15": {
+      "label_id": "Remaja Perempuan 13-15 tahun",
+      "energy_kcal": 2050,
+      "protein_g": 65,
+      "fat_g": 70,
+      "carbohydrate_g": 300,
+      "iron_mg": 26,
+      "zinc_mg": 8,
+      "vitamin_a_ug_rae": 600,
+      "calcium_mg": 1200
+    },
+    "adult_male_19_49": {
+      "label_id": "Laki-laki Dewasa 19-49 tahun",
+      "energy_kcal": 2650,
+      "protein_g": 65,
+      "fat_g": 75,
+      "carbohydrate_g": 430,
+      "iron_mg": 9,
+      "zinc_mg": 11,
+      "vitamin_a_ug_rae": 650,
+      "calcium_mg": 1000
+    },
+    "adult_female_19_49": {
+      "label_id": "Perempuan Dewasa 19-49 tahun",
+      "energy_kcal": 2150,
+      "protein_g": 60,
+      "fat_g": 65,
+      "carbohydrate_g": 340,
+      "iron_mg": 18,
+      "zinc_mg": 8,
+      "vitamin_a_ug_rae": 600,
+      "calcium_mg": 1000
+    },
+    "lactating_mother_0_6m": {
+      "label_id": "Ibu Menyusui (0-6 bulan)",
+      "based_on": "adult_female_19_49",
+      "supplement_note": "Permenkes 28/2019 lactation 0-6m supplement applied",
+      "energy_kcal": 2480,
+      "protein_g": 80,
+      "fat_g": 67,
+      "carbohydrate_g": 405,
+      "iron_mg": 18,
+      "zinc_mg": 13,
+      "vitamin_a_ug_rae": 950,
+      "calcium_mg": 1000
+    }
+  }
+}

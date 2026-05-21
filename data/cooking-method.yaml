@@ -1,0 +1,73 @@
+food_group_default:
+  serealia: kukus
+  umbi: rebus
+  kacang: tumis
+  sayur: tumis
+  buah: mentah
+  daging: goreng
+  ikan: goreng
+  telur: rebus
+  susu: rebus
+  bumbu: tumis
+  minyak: goreng
+  konfeksioneri: mentah
+  minuman: mentah
+
+ingredient_overrides:
+  tkpi_AR001: kukus
+  tkpi_AP005: kukus
+  tkpi_AR005: kukus
+
+  tkpi_BR016: rebus
+  tkpi_BR028: kukus
+  tkpi_BR013: rebus
+
+  tkpi_CP077: goreng
+  tkpi_CP061: goreng
+  tkpi_CR014: rebus
+  tkpi_CR018: rebus
+
+  tkpi_DR008: tumis
+  tkpi_DR100: tumis
+  tkpi_DR042: tumis
+  tkpi_DR166: tumis
+  tkpi_DR161: tumis
+  tkpi_NR014: tumis
+  tkpi_NR015: tumis
+  tkpi_NR007: tumis
+  tkpi_NR008: tumis
+
+  tkpi_HR001: rebus
+  tkpi_HR005: rebus
+  tkpi_HR011: rebus
+
+  tkpi_FR005: goreng
+  tkpi_FR025: goreng
+  tkpi_FR019: goreng
+
+  tkpi_GR050: goreng
+  tkpi_GR007: goreng
+  tkpi_GR070: goreng
+
+  tkpi_ER074: mentah
+  tkpi_ER088: mentah
+  tkpi_ER054: mentah
+  tkpi_ER039: mentah
+  tkpi_ER105: mentah
+  tkpi_ER003: mentah
+  tkpi_ER073: mentah
+
+  tkpi_JR006: rebus
+  tkpi_CP060: rebus
+
+  tkpi_KR012: goreng
+  tkpi_KR011: goreng
+  tkpi_KR010: goreng
+
+verb_templates:
+  tumis: "Tumis {ingredients} dengan sedikit minyak hingga matang merata, bumbui sesuai selera."
+  rebus: "Rebus {ingredients} dalam air mendidih hingga lunak, tiriskan."
+  kukus: "Kukus {ingredients} sekitar 15 menit hingga matang."
+  goreng: "Goreng {ingredients} hingga kecokelatan, angkat dan tiriskan."
+  sangrai: "Sangrai {ingredients} di wajan kering dengan api kecil hingga harum."
+  mentah: "Sajikan {ingredients} dalam keadaan segar, cuci bersih sebelum dikonsumsi."
