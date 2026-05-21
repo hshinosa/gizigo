@@ -48,8 +48,8 @@ The optimizer is a **deterministic linear program**, not a chatbot. We chose the
 | Plan | Objective | Method |
 |---|---|---|
 | **Cheapest** | `min Σ price·grams` | Pure cost LP |
-| **Most Balanced** | `min Σ (price·grams) + 50 · Σ slack_n` | Weighted-sum LP with slack ≥ AKG_n − achieved_n |
-| **Most Varied** | Maximise distinct food groups while staying near optimal | Iterative-substitution heuristic on top of *Cheapest* |
+| **Most Balanced** | `min Σ (price·grams) + α · max_n overshoot_n` | LP with over-shoot variables capped at 1.3 × RDA per nutrient |
+| **Most Varied** | `max Σ binary food_group_present` | MIP with binary group-presence indicators, ≤ 1.05× cheapest cost |
 
 When no feasible solution exists at the user's budget, GiziGo runs a **bisection search on the budget** to estimate the *minimum feasible budget*, then reports the deficit nutrients and offers a one-click "raise to minimum" action — turning a frustrating "no answer" into actionable guidance.
 
@@ -85,13 +85,15 @@ The MBG program targets ~82.9 million beneficiaries by 2029 with a per-portion b
 
 GiziGo answers that question quantitatively. For a single primary-school child (`child_4_6` AKG category) using national-median prices, the optimizer reports:
 
-| Plan | Cost | Result |
-|---|---|---|
-| Cheapest | **Rp 9,472** | All 8 AKG nutrients ≥ 100 % across 5 food groups |
-| Most Balanced | **Rp 9,472** | LP collapses to the same global optimum (mathematically honest) |
-| Most Varied | **Rp 9,472** | Same 5-group spread; the heuristic does not invent variety where the budget already allocates optimally |
+| Plan | Cost | Food groups | Notes |
+|---|---|---|---|
+| Cheapest | **Rp 9,472** | 5 | Pure cost LP. AKG met, iron 200%+ from concentration on cheap protein |
+| Most Balanced | **Rp 10,827** | 5 | Penalises nutrient over-shoot beyond 130% RDA — flatter achievement profile |
+| Most Varied | **Rp 9,945** | **6** | MIP that maximises distinct food groups within +5% cost headroom |
 
 **The headline finding**: the MBG per-portion budget of Rp 10-12k has only ~Rp 500-3,000 of headroom over the optimizer-derived AKG floor of Rp 9,472 for primary-age children. That is much narrower than press estimates and matches the public concern that the budget is *just* sufficient when procurement is optimized — and infeasible otherwise.
+
+For Bu Sari's family at Rp 60k/day, the same three-plan output produces *visibly different* meals: Cheapest Rp 57,936 / 6 groups, Most Balanced Rp 60,000 / 8 groups (over-shoot smoothed), Most Varied Rp 60,000 / **11 groups, 14 ingredients**. The screenshot above shows the iron achievement bar dropping from 221% to 185% to 215% across the three plans — that is the LP penalty literally pulling the over-shoot down.
 
 GiziGo can therefore serve SPPG (*Satuan Pelayanan Pemenuhan Gizi*, the program's local kitchen units) as a deterministic audit and procurement-planning layer:
 

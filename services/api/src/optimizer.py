@@ -65,7 +65,11 @@ MEAL_SLOT_BY_GROUP: dict[str, str] = {
 
 MIN_GRAMS_THRESHOLD = 10.0
 MAX_GRAMS_PER_INGREDIENT = 1500.0
-BALANCED_SLACK_WEIGHT = 50.0
+BALANCED_OVERSHOOT_WEIGHT = 2.0
+BALANCED_OVERSHOOT_THRESHOLD = 1.3
+DIVERSE_GROUP_PRESENCE_GRAMS = 50.0
+DIVERSE_AKG_FLOOR_RELAXATION = 0.95
+DIVERSE_BUDGET_HEADROOM = 1.05
 
 
 @dataclass(frozen=True)
@@ -208,17 +212,28 @@ def solve_balanced(inputs: SolverInputs) -> SolveResult:
 
     requirements = _household_requirements(inputs)
     grams = _make_grams_vars(eligible)
-    slack = {
-        n: pulp.LpVariable(f"slack_{n}", lowBound=0.0, cat=pulp.LpContinuous)
+    overshoot = {
+        n: pulp.LpVariable(f"overshoot_{n}", lowBound=0.0, cat=pulp.LpContinuous)
         for n in NUTRIENT_KEYS
     }
+    max_overshoot_ratio = pulp.LpVariable(
+        "max_overshoot_ratio", lowBound=0.0, cat=pulp.LpContinuous,
+    )
 
     prob = pulp.LpProblem("balanced", pulp.LpMinimize)
-    prob += _cost_term(grams, eligible, inputs) + BALANCED_SLACK_WEIGHT * pulp.lpSum(slack.values())
+    prob += _cost_term(grams, eligible, inputs) + BALANCED_OVERSHOOT_WEIGHT * inputs.daily_budget_idr * max_overshoot_ratio
     _add_common_constraints(prob, grams, eligible, inputs)
 
     for n in NUTRIENT_KEYS:
-        prob += (_nutrient_term(grams, eligible, n) + slack[n]) >= requirements[n], f"req_{n}"
+        nutrient_expr = _nutrient_term(grams, eligible, n)
+        prob += nutrient_expr >= requirements[n], f"req_{n}"
+        prob += (
+            nutrient_expr - overshoot[n] <= BALANCED_OVERSHOOT_THRESHOLD * requirements[n]
+        ), f"cap_{n}"
+        if requirements[n] > 0:
+            prob += (
+                overshoot[n] <= max_overshoot_ratio * requirements[n]
+            ), f"max_overshoot_{n}"
 
     prob.solve(_solver())
     status = pulp.LpStatus[prob.status]
@@ -235,111 +250,119 @@ def solve_balanced(inputs: SolverInputs) -> SolveResult:
     return SolveResult("optimal", float(total_cost), grams_values, achieved, elapsed_ms)
 
 
-def derive_diverse(cheapest: SolveResult, inputs: SolverInputs) -> tuple[SolveResult, bool, str | None]:
-    if cheapest.status != "optimal":
-        return cheapest, True, "underlying_cheapest_infeasible"
-
-    catalog = inputs.catalog.by_id()
-    eligible_by_id = {ing.ingredient_id: ing for ing in _eligible_ingredients(inputs)}
-    used = {iid: g for iid, g in cheapest.grams_by_ingredient.items() if g >= MIN_GRAMS_THRESHOLD}
-    used_groups = {eligible_by_id[i].food_group for i in used if i in eligible_by_id}
-
-    candidate_groups = sorted(
-        {ing.food_group for ing in eligible_by_id.values()} - used_groups,
-    )
-    target_group_increase = 2
-
-    if not candidate_groups:
-        return cheapest, True, "no_unused_food_groups"
+def solve_diverse(
+    inputs: SolverInputs,
+    cheapest_cost: float | None = None,
+) -> tuple[SolveResult, bool, str | None]:
+    started = time.perf_counter()
+    eligible = _eligible_ingredients(inputs)
+    if not eligible:
+        return (
+            SolveResult("infeasible", 0.0, {}, {k: 0.0 for k in NUTRIENT_KEYS}, 0),
+            True,
+            "no_eligible_ingredients",
+        )
 
     requirements = _household_requirements(inputs)
+    grams = _make_grams_vars(eligible)
 
-    grams_values = dict(cheapest.grams_by_ingredient)
-    swaps_done = 0
+    food_groups = sorted({ing.food_group for ing in eligible})
+    group_present = {
+        g: pulp.LpVariable(f"present_{g}", cat=pulp.LpBinary)
+        for g in food_groups
+    }
+
+    prob = pulp.LpProblem("diverse", pulp.LpMaximize)
+    prob += pulp.lpSum(group_present.values())
+
+    cost_expr = _cost_term(grams, eligible, inputs)
+    prob += cost_expr <= inputs.daily_budget_idr, "budget"
+    if cheapest_cost is not None and cheapest_cost > 0:
+        prob += cost_expr <= DIVERSE_BUDGET_HEADROOM * cheapest_cost, "near_optimal_cost"
+
+    for n in NUTRIENT_KEYS:
+        prob += _nutrient_term(grams, eligible, n) >= requirements[n], f"req_{n}"
+
+    for g in food_groups:
+        ings_in_group = [ing for ing in eligible if ing.food_group == g]
+        if not ings_in_group:
+            continue
+        group_grams = pulp.lpSum(grams[ing.ingredient_id] for ing in ings_in_group)
+        prob += group_grams >= DIVERSE_GROUP_PRESENCE_GRAMS * group_present[g], f"present_min_{g}"
+        max_group_grams = MAX_GRAMS_PER_INGREDIENT * len(ings_in_group)
+        prob += group_grams <= max_group_grams * group_present[g], f"present_max_{g}"
+
+    prob.solve(_solver())
+    status = pulp.LpStatus[prob.status]
+    elapsed_ms = int((time.perf_counter() - started) * 1000)
+
     relaxed = False
     reason: str | None = None
 
-    for new_group in candidate_groups[:target_group_increase]:
-        new_group_candidates = sorted(
-            (ing for ing in eligible_by_id.values() if ing.food_group == new_group),
-            key=lambda ing: inputs.prices.prices_per_100g[ing.ingredient_id],
+    if status != "Optimal":
+        relaxed_inputs = SolverInputs(
+            catalog=inputs.catalog,
+            prices=inputs.prices,
+            akg=inputs.akg,
+            members=inputs.members,
+            daily_budget_idr=inputs.daily_budget_idr,
+            restrictions=inputs.restrictions,
         )
-        if not new_group_candidates:
-            continue
+        relaxed_grams = _make_grams_vars(eligible)
+        relaxed_groups = {
+            g: pulp.LpVariable(f"r_present_{g}", cat=pulp.LpBinary)
+            for g in food_groups
+        }
+        relaxed_prob = pulp.LpProblem("diverse_relaxed", pulp.LpMaximize)
+        relaxed_prob += pulp.lpSum(relaxed_groups.values())
+        relaxed_cost = _cost_term(relaxed_grams, eligible, relaxed_inputs)
+        relaxed_prob += relaxed_cost <= inputs.daily_budget_idr, "budget"
+        for n in NUTRIENT_KEYS:
+            relaxed_prob += (
+                _nutrient_term(relaxed_grams, eligible, n)
+                >= DIVERSE_AKG_FLOOR_RELAXATION * requirements[n]
+            ), f"req_{n}"
+        for g in food_groups:
+            ings_in_group = [ing for ing in eligible if ing.food_group == g]
+            if not ings_in_group:
+                continue
+            group_grams = pulp.lpSum(relaxed_grams[ing.ingredient_id] for ing in ings_in_group)
+            relaxed_prob += group_grams >= DIVERSE_GROUP_PRESENCE_GRAMS * relaxed_groups[g], f"present_min_{g}"
+            max_group_grams = MAX_GRAMS_PER_INGREDIENT * len(ings_in_group)
+            relaxed_prob += group_grams <= max_group_grams * relaxed_groups[g], f"present_max_{g}"
+        relaxed_prob.solve(_solver())
+        if pulp.LpStatus[relaxed_prob.status] != "Optimal":
+            return (
+                SolveResult("infeasible", 0.0, {}, {k: 0.0 for k in NUTRIENT_KEYS}, elapsed_ms),
+                True,
+                "akg_bound_violated",
+            )
+        grams = relaxed_grams
+        relaxed = True
+        reason = "akg_bound_violated"
 
-        donor_id = _pick_donor_ingredient(grams_values, eligible_by_id, used_groups, inputs)
-        if donor_id is None:
-            relaxed = True
-            reason = "akg_bound_violated"
-            break
-
-        ing_new = new_group_candidates[0]
-        donor_grams = grams_values.get(donor_id, 0.0)
-        donor_price_per_g = inputs.prices.prices_per_100g[donor_id] / 100.0
-        donor_cost = donor_grams * donor_price_per_g
-        new_price_per_g = inputs.prices.prices_per_100g[ing_new.ingredient_id] / 100.0
-
-        candidate_grams = donor_cost / new_price_per_g if new_price_per_g > 0 else 0.0
-        candidate_grams = min(candidate_grams, MAX_GRAMS_PER_INGREDIENT)
-        if candidate_grams < MIN_GRAMS_THRESHOLD:
-            candidate_grams = max(MIN_GRAMS_THRESHOLD, candidate_grams)
-
-        trial_values = dict(grams_values)
-        trial_values[donor_id] = 0.0
-        trial_values[ing_new.ingredient_id] = trial_values.get(ing_new.ingredient_id, 0.0) + candidate_grams
-        trial_achieved = _evaluate(trial_values, list(eligible_by_id.values()))
-        trial_cost = sum(
-            (inputs.prices.prices_per_100g[iid] / 100.0) * v for iid, v in trial_values.items()
-        )
-
-        if trial_cost > inputs.daily_budget_idr:
-            relaxed = True
-            reason = "budget_exhausted"
-            break
-        if any(trial_achieved[k] < requirements[k] * 0.95 for k in NUTRIENT_KEYS):
-            relaxed = True
-            reason = "akg_bound_violated"
-            break
-
-        grams_values = trial_values
-        used_groups.add(new_group)
-        swaps_done += 1
-
-    final_achieved = _evaluate(grams_values, list(eligible_by_id.values()))
-    final_cost = sum(
+    grams_values = {ing.ingredient_id: grams[ing.ingredient_id].value() or 0.0 for ing in eligible}
+    achieved = _evaluate(grams_values, eligible)
+    total_cost = sum(
         (inputs.prices.prices_per_100g[iid] / 100.0) * v for iid, v in grams_values.items()
     )
-    new_status: SolveStatus = "infeasible_relaxed" if relaxed else "optimal"
+
+    if cheapest_cost is not None and cheapest_cost > 0 and total_cost > cheapest_cost * DIVERSE_BUDGET_HEADROOM + 1e-3:
+        relaxed = True
+        reason = "budget_exhausted"
+
+    elapsed_ms = int((time.perf_counter() - started) * 1000)
     return (
-        SolveResult(new_status, float(final_cost), grams_values, final_achieved, cheapest.elapsed_ms),
+        SolveResult("optimal", float(total_cost), grams_values, achieved, elapsed_ms),
         relaxed,
-        reason if relaxed else None,
+        reason,
     )
 
 
-def _pick_donor_ingredient(
-    grams_values: dict[str, float],
-    eligible_by_id: dict[str, Ingredient],
-    used_groups: set[str],
-    inputs: SolverInputs,
-) -> str | None:
-    best_id = None
-    best_density = float("inf")
-    for iid, g in grams_values.items():
-        if g < MIN_GRAMS_THRESHOLD or iid not in eligible_by_id:
-            continue
-        ing = eligible_by_id[iid]
-        if ing.food_group not in used_groups:
-            continue
-        score = sum(ing.nutrients_per_100g[n] for n in ("protein_g", "iron_mg", "zinc_mg", "calcium_mg", "vitamin_a_ug_rae"))
-        rupiah_per_g = inputs.prices.prices_per_100g[iid] / 100.0
-        if rupiah_per_g <= 0:
-            continue
-        density = score / rupiah_per_g if score > 0 else 0
-        if density < best_density and density >= 0:
-            best_density = density
-            best_id = iid
-    return best_id
+def derive_diverse(cheapest: SolveResult, inputs: SolverInputs) -> tuple[SolveResult, bool, str | None]:
+    if cheapest.status != "optimal":
+        return cheapest, True, "underlying_cheapest_infeasible"
+    return solve_diverse(inputs, cheapest_cost=cheapest.total_cost_idr)
 
 
 def analyze_infeasibility(inputs: SolverInputs) -> InfeasibilityHint | None:

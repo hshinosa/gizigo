@@ -41,7 +41,13 @@ The UI is in English for the judges; persona names retain their Indonesian honor
 
 The MBG program ([Perpres 83/2024](https://peraturan.bpk.go.id/Details/295015/perpres-no-83-tahun-2024)) targets ~82.9 million beneficiaries by 2029 with a per-portion budget reported in the press at **Rp 10,000-15,000**. Public debate has questioned whether that envelope is sufficient to meet a primary-school child's daily AKG.
 
-The GiziGo `mbg_sppg` persona answers the question quantitatively. At national-median prices, a single `child_4_6` AKG profile is satisfied by the cheapest plan at **Rp 9,472** across 5 distinct food groups (cassava, tofu, papaya, anchovy, palm oil). That is *just* under the Rp 10-12k MBG envelope — much narrower headroom than press estimates suggest, and consistent with public concern that the budget is sufficient *only when* procurement is optimized.
+The GiziGo `mbg_sppg` persona answers the question quantitatively. At national-median prices, a single `child_4_6` AKG profile is satisfied by:
+
+- **Cheapest** at **Rp 9,472**, 5 food groups (cassava + tofu + papaya + anchovy + palm oil) — iron 220%+ from concentrated protein
+- **Most Balanced** at **Rp 10,827**, 5 groups, over-shoot penalty smooths nutrient profile
+- **Most Varied** at **Rp 9,945**, **6 food groups**, MIP-maximised diversity inside +5% cost headroom
+
+All three are *just* under the Rp 10-12k MBG envelope — much narrower headroom than press estimates suggest, and consistent with public concern that the budget is sufficient *only when* procurement is optimized.
 
 The implication is not that the budget is too low. It's that **AKG is reachable when SPPG (Satuan Pelayanan Pemenuhan Gizi) procurement is optimized — but with very thin margin**, and any single price shock (chili, eggs) flips the LP into infeasibility. GiziGo is the audit-and-planning layer that catches this before the kitchen does.
 
