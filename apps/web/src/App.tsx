@@ -201,20 +201,36 @@ export default function App() {
           )}
 
           {status === "loading" && (
-            <div className="space-y-3">
-              {[0, 1, 2].map((i) => (
-                <div key={i} className="animate-pulse rounded-2xl border border-slate-200 bg-white p-5">
-                  <div className="h-5 w-32 rounded bg-slate-200" />
-                  <div className="mt-3 h-3 w-48 rounded bg-slate-100" />
+            <div className="space-y-4">
+              {[
+                { w: "w-24", color: "bg-brand-100" },
+                { w: "w-20", color: "bg-sky-100" },
+                { w: "w-28", color: "bg-fuchsia-100" },
+              ].map((card, i) => (
+                <div key={i} className={`animate-pulse rounded-2xl border ${i === 0 ? "border-brand-200" : i === 1 ? "border-sky-200" : "border-fuchsia-200"} bg-white p-5 shadow-sm`}>
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <div className={`h-5 ${card.w} rounded-lg ${card.color}`} />
+                      <div className="mt-2 h-3 w-36 rounded bg-slate-100" />
+                    </div>
+                    <div className="h-8 w-8 rounded-full bg-slate-100" />
+                  </div>
+                  <div className="mt-4 flex items-center justify-center">
+                    <div className={`h-36 w-36 rounded-full ${card.color} opacity-40`} />
+                  </div>
                   <div className="mt-4 space-y-2">
-                    {[0, 1, 2, 3, 4, 5, 6, 7].map((j) => (
-                      <div key={j} className="h-2 rounded bg-slate-100" />
+                    {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((j) => (
+                      <div key={j} className="flex items-center gap-2">
+                        <div className="h-2 w-16 rounded bg-slate-100" />
+                        <div className={`h-1.5 flex-1 rounded-full ${card.color} opacity-60`} style={{ width: `${40 + (j * 7) % 50}%` }} />
+                      </div>
                     ))}
                   </div>
                 </div>
               ))}
-              <div className="text-center text-xs text-slate-500 flex items-center justify-center gap-1">
-                <Loader2 className="h-3 w-3 animate-spin" /> Running ILP solver...
+              <div className="text-center text-xs text-slate-500 flex items-center justify-center gap-2 py-2">
+                <Loader2 className="h-3.5 w-3.5 animate-spin text-brand-500" />
+                <span>Solving ILP — three plans, nine nutrients…</span>
               </div>
             </div>
           )}

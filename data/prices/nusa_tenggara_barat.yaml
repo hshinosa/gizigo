@@ -1,0 +1,320 @@
+schema_version: prices.v1
+region_id: nusa_tenggara_barat
+region_label: Nusa Tenggara Barat
+currency: IDR
+collected_iso: '2026-05-21'
+stunting_pct_ssgi_2024: 32.7
+sources:
+- https://www.bi.go.id/hargapangan (BI PIHPS Nasional, regional filter)
+- Estimasi berbasis national_baseline × 1.14
+notes: Stunting 32.7% (SSGI 2024). Harga mengacu PIHPS NTB.
+ingredients:
+  tkpi_AR001:
+    name: Beras giling (mentah)
+    price_per_100g_idr: 1600
+  tkpi_AP005:
+    name: Nasi beras merah
+    price_per_100g_idr: 2750
+  tkpi_AR005:
+    name: Beras jagung kuning
+    price_per_100g_idr: 1250
+  tkpi_BR016:
+    name: Singkong segar
+    price_per_100g_idr: 450
+  tkpi_BR028:
+    name: Ubi jalar kuning segar
+    price_per_100g_idr: 550
+  tkpi_BR013:
+    name: Kentang segar
+    price_per_100g_idr: 1500
+  tkpi_CP077:
+    name: Tempe kedelai murni mentah
+    price_per_100g_idr: 1600
+  tkpi_CP061:
+    name: Tahu mentah
+    price_per_100g_idr: 1250
+  tkpi_CR014:
+    name: Kacang hijau kering
+    price_per_100g_idr: 2600
+  tkpi_CR018:
+    name: Kacang kedelai segar
+    price_per_100g_idr: 1950
+  tkpi_DR008:
+    name: Bayam segar
+    price_per_100g_idr: 1500
+  tkpi_DR166:
+    name: Wortel segar
+    price_per_100g_idr: 1050
+  tkpi_NR014:
+    name: Cabai merah segar
+    price_per_100g_idr: 5700
+  tkpi_NR015:
+    name: Cabai rawit segar
+    price_per_100g_idr: 8550
+  tkpi_DR161:
+    name: Tomat merah segar
+    price_per_100g_idr: 1250
+  tkpi_NR007:
+    name: Bawang merah segar
+    price_per_100g_idr: 5150
+  tkpi_NR008:
+    name: Bawang putih segar
+    price_per_100g_idr: 5700
+  tkpi_ER074:
+    name: Pisang ambon segar
+    price_per_100g_idr: 1500
+  tkpi_ER088:
+    name: Pisang raja sereh segar
+    price_per_100g_idr: 1700
+  tkpi_ER054:
+    name: Mangga segar
+    price_per_100g_idr: 2600
+  tkpi_ER039:
+    name: Jeruk manis segar
+    price_per_100g_idr: 1950
+  tkpi_ER105:
+    name: Semangka segar
+    price_per_100g_idr: 1250
+  tkpi_ER003:
+    name: Apel malang segar
+    price_per_100g_idr: 4350
+  tkpi_ER073:
+    name: Pepaya segar
+    price_per_100g_idr: 900
+  tkpi_HR001:
+    name: Telur ayam kampung segar
+    price_per_100g_idr: 2950
+  tkpi_HR005:
+    name: Telur bebek alabio segar
+    price_per_100g_idr: 3750
+  tkpi_HR011:
+    name: Telur burung puyuh segar
+    price_per_100g_idr: 4800
+  tkpi_FR025:
+    name: Sapi daging kurus segar
+    price_per_100g_idr: 15400
+  tkpi_FR019:
+    name: Kambing daging segar
+    price_per_100g_idr: 13100
+  tkpi_FR005:
+    name: Ayam daging segar
+    price_per_100g_idr: 4350
+  tkpi_GR050:
+    name: Ikan kembung segar
+    price_per_100g_idr: 3650
+  tkpi_GR070:
+    name: Ikan tongkol segar
+    price_per_100g_idr: 6600
+  tkpi_GR007:
+    name: Ikan bandeng segar
+    price_per_100g_idr: 2850
+  tkpi_JR006:
+    name: Susu sapi segar
+    price_per_100g_idr: 2150
+  tkpi_CP060:
+    name: Susu kedelai
+    price_per_100g_idr: 1600
+  tkpi_KR012:
+    name: Minyak kelapa sawit
+    price_per_100g_idr: 1600
+  tkpi_KR011:
+    name: Minyak kelapa
+    price_per_100g_idr: 2750
+  tkpi_KR010:
+    name: Minyak kedelai
+    price_per_100g_idr: 2600
+  tkpi_BR025:
+    name: Talas bogor segar
+    price_per_100g_idr: 700
+  tkpi_BR031:
+    name: Ubi jalar putih segar
+    price_per_100g_idr: 700
+  tkpi_CR015:
+    name: Kacang hitam kering
+    price_per_100g_idr: 3650
+  tkpi_CR024:
+    name: Kacang merah kering
+    price_per_100g_idr: 3100
+  tkpi_CR029:
+    name: Kacang panjang biji kering
+    price_per_100g_idr: 2850
+  tkpi_CR030:
+    name: Kacang tanah sangrai
+    price_per_100g_idr: 3300
+  tkpi_DR013:
+    name: Buncis segar
+    price_per_100g_idr: 1100
+  tkpi_DR065:
+    name: Daun pepaya segar
+    price_per_100g_idr: 5700
+  tkpi_DR071:
+    name: Daun singkong segar
+    price_per_100g_idr: 2300
+  tkpi_DR123:
+    name: Labu siam segar
+    price_per_100g_idr: 700
+  tkpi_DR154:
+    name: Terong segar
+    price_per_100g_idr: 850
+  tkpi_DR018:
+    name: Daun bawang segar
+    price_per_100g_idr: 1150
+  tkpi_ER001:
+    name: Alpukat segar
+    price_per_100g_idr: 2750
+  tkpi_ER006:
+    name: Belimbing segar
+    price_per_100g_idr: 1350
+  tkpi_ER031:
+    name: Jambu biji segar
+    price_per_100g_idr: 1250
+  tkpi_ER040:
+    name: Jeruk nipis segar
+    price_per_100g_idr: 1950
+  tkpi_ER069:
+    name: Nanas palembang segar
+    price_per_100g_idr: 850
+  tkpi_ER098:
+    name: Salak bali segar
+    price_per_100g_idr: 2300
+  tkpi_GP051:
+    name: Udang kering mentah
+    price_per_100g_idr: 10850
+  tkpi_GR003:
+    name: Cumi-cumi segar
+    price_per_100g_idr: 8200
+  tkpi_GR080:
+    name: Rebon udang kecil segar
+    price_per_100g_idr: 5700
+  tkpi_GR084:
+    name: Udang segar
+    price_per_100g_idr: 9700
+  tkpi_NR017:
+    name: Daun salam bubuk
+    price_per_100g_idr: 14800
+  tkpi_NR018:
+    name: Jahe segar
+    price_per_100g_idr: 2500
+  tkpi_NR019:
+    name: Kemiri
+    price_per_100g_idr: 9100
+  tkpi_NR022:
+    name: Kunyit segar
+    price_per_100g_idr: 1950
+  tkpi_NR023:
+    name: Merica kering
+    price_per_100g_idr: 22250
+  tkpi_AP084:
+    name: Mie aceh rebus
+    price_per_100g_idr: 3200
+  tkpi_GR048:
+    name: Ikan mujahir segar
+    price_per_100g_idr: 3400
+  tkpi_GR053:
+    name: Ikan patin segar
+    price_per_100g_idr: 3750
+  tkpi_GR046:
+    name: Ikan mas segar
+    price_per_100g_idr: 4200
+  tkpi_GR019:
+    name: Ikan cakalang segar
+    price_per_100g_idr: 5700
+  tkpi_GR057:
+    name: Ikan sarden segar
+    price_per_100g_idr: 4800
+  tkpi_GR068:
+    name: Ikan teri segar
+    price_per_100g_idr: 5150
+  tkpi_GR074:
+    name: Kerang segar
+    price_per_100g_idr: 3650
+  tkpi_JP009:
+    name: Susu skim bubuk
+    price_per_100g_idr: 11950
+  tkpi_JR003:
+    name: Susu kambing segar
+    price_per_100g_idr: 10250
+  tkpi_DR142:
+    name: Sawi putih segar
+    price_per_100g_idr: 700
+  tkpi_DR145:
+    name: Selada segar
+    price_per_100g_idr: 1150
+  tkpi_DR126:
+    name: Lobak segar
+    price_per_100g_idr: 1050
+  tkpi_DR083:
+    name: Gambas segar
+    price_per_100g_idr: 850
+  tkpi_DR035:
+    name: Daun katuk segar
+    price_per_100g_idr: 4550
+  tkpi_DR090:
+    name: Jamur tiram segar
+    price_per_100g_idr: 2850
+  tkpi_DR089:
+    name: Jamur merang segar
+    price_per_100g_idr: 3200
+  tkpi_DR087:
+    name: Jamur kuping kering
+    price_per_100g_idr: 14800
+  tkpi_DR109:
+    name: Ketimun segar
+    price_per_100g_idr: 650
+  tkpi_CR016:
+    name: Kacang kapri segar
+    price_per_100g_idr: 1800
+  tkpi_DR104:
+    name: Kecipir muda segar
+    price_per_100g_idr: 1500
+  tkpi_AR015:
+    name: Jagung muda kuning mentah
+    price_per_100g_idr: 1100
+  tkpi_AP022:
+    name: Mi kering
+    price_per_100g_idr: 2300
+  tkpi_AP024:
+    name: Roti putih
+    price_per_100g_idr: 1950
+  tkpi_AP006:
+    name: Bihun mentah
+    price_per_100g_idr: 2150
+  tkpi_AP019:
+    name: Maizena tepung
+    price_per_100g_idr: 2300
+  tkpi_AP004:
+    name: Tepung beras mentah
+    price_per_100g_idr: 1500
+  tkpi_ER023:
+    name: Durian segar
+    price_per_100g_idr: 5700
+  tkpi_ER096:
+    name: Rambutan binjai segar
+    price_per_100g_idr: 1350
+  tkpi_ER064:
+    name: Manggis segar
+    price_per_100g_idr: 2150
+  tkpi_ER106:
+    name: Sirsak segar
+    price_per_100g_idr: 1600
+  tkpi_ER109:
+    name: Sukun muda segar
+    price_per_100g_idr: 1150
+  tkpi_ER102:
+    name: Sawo duren segar
+    price_per_100g_idr: 1800
+  tkpi_ER065:
+    name: Markisa segar
+    price_per_100g_idr: 2400
+  tkpi_ER012:
+    name: Buah Naga Merah segar
+    price_per_100g_idr: 2850
+  tkpi_ER022:
+    name: Duku segar
+    price_per_100g_idr: 2300
+  tkpi_NR020:
+    name: Ketumbar kering
+    price_per_100g_idr: 17100
+  tkpi_NR016:
+    name: Cengkeh kering
+    price_per_100g_idr: 43300

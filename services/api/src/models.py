@@ -37,11 +37,20 @@ AkgCategory = Literal[
 Region = Literal[
     "dki_jakarta",
     "national_baseline",
+    "yogyakarta",
     "jawa_barat",
+    "banten",
     "jawa_tengah",
     "jawa_timur",
+    "aceh",
     "sumatera_utara",
+    "sulawesi_selatan",
+    "sulawesi_barat",
+    "kalimantan_barat",
+    "nusa_tenggara_barat",
     "nusa_tenggara_timur",
+    "maluku",
+    "papua",
 ]
 SolveStatus = Literal["optimal", "infeasible", "infeasible_relaxed"]
 
