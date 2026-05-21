@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Soup, AlertTriangle, Printer, Download } from "lucide-react";
+import {
+  RadarChart, Radar, PolarGrid, PolarAngleAxis, ResponsiveContainer, Tooltip,
+} from "recharts";
 import type { Plan } from "../lib/types";
 import { COPY } from "../copy/id";
 import { fmtIDR, fmtNutrient, fmtPct, cn } from "../lib/format";
@@ -122,7 +125,38 @@ export function PlanCard({ plan, onOpenDrawer }: Props) {
         </div>
       </header>
 
-      <div className="px-5 pb-3 space-y-2">
+      <div className="px-5 pb-2">
+        <ResponsiveContainer width="100%" height={180}>
+          <RadarChart
+            data={plan.achievement.map((a) => ({
+              nutrient: COPY.akg.nutrient[a.nutrient] ?? a.nutrient,
+              pct: Math.min(200, Math.round(a.pct)),
+              fullMark: 200,
+            }))}
+            margin={{ top: 4, right: 20, bottom: 4, left: 20 }}
+          >
+            <PolarGrid stroke="#e2e8f0" />
+            <PolarAngleAxis
+              dataKey="nutrient"
+              tick={{ fontSize: 10, fill: "#475569" }}
+            />
+            <Radar
+              name="Achievement %"
+              dataKey="pct"
+              stroke={plan.plan_type === "cheapest" ? "#1d623b" : plan.plan_type === "balanced" ? "#0284c7" : "#a21caf"}
+              fill={plan.plan_type === "cheapest" ? "#1d623b" : plan.plan_type === "balanced" ? "#0284c7" : "#a21caf"}
+              fillOpacity={0.35}
+              strokeWidth={2.5}
+            />
+            <Tooltip
+              formatter={(v: number) => [`${v}%`, "Achievement"]}
+              contentStyle={{ fontSize: 11, borderRadius: 8 }}
+            />
+          </RadarChart>
+        </ResponsiveContainer>
+      </div>
+
+      <div className="px-5 pb-3 space-y-1.5">
         {plan.achievement.map((a) => {
           const pct = Math.max(0, Math.min(220, a.pct));
           return (
@@ -133,7 +167,7 @@ export function PlanCard({ plan, onOpenDrawer }: Props) {
                   {fmtNutrient(a.achieved, a.unit)} / {fmtNutrient(a.required, a.unit)} <span className={cn("ml-1 font-semibold", a.pct < 100 ? "text-amber-600" : "text-brand-700")}>{fmtPct(a.pct)}</span>
                 </span>
               </div>
-              <div className="mt-1 h-1.5 w-full rounded-full bg-slate-200 overflow-hidden">
+              <div className="mt-0.5 h-1.5 w-full rounded-full bg-slate-200 overflow-hidden">
                 <div
                   className={cn("h-full rounded-full transition-all", BAR_COLOR(a.pct))}
                   style={{ width: `${(pct / 220) * 100}%` }}
