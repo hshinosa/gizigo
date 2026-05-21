@@ -186,16 +186,16 @@ export function HouseholdForm({ value, onChange, onSubmit, isLoading }: Props) {
         <h3 className="flex items-center gap-2 font-semibold text-slate-800">
           <MapPin className="h-4 w-4 text-brand-500" /> {COPY.region.sectionTitle}
         </h3>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {(Object.keys(COPY.region.options) as Region[]).map((r) => (
             <button
               key={r}
               type="button"
               onClick={() => onChange({ ...value, region: r })}
               className={cn(
-                "rounded-lg px-3 py-2 text-sm border",
+                "rounded-lg px-3 py-2 text-xs border",
                 value.region === r
-                  ? "border-brand-400 bg-brand-50 text-brand-800"
+                  ? "border-brand-400 bg-brand-50 text-brand-800 font-medium"
                   : "border-slate-200 text-slate-600 hover:border-brand-200",
               )}
             >

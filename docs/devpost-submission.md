@@ -10,11 +10,11 @@ Paste these fields directly into https://algofest-hackathon2.devpost.com/submiss
 
 ## Tagline (≤ 200 chars)
 
-Turn every Rupiah into the most nutritious daily plate. ILP-grade meal optimisation for Indonesian families against the 21.6 % under-five stunting rate.
+Turn every Rupiah into the most nutritious daily plate. ILP-grade meal optimisation for Indonesian families against the 19.8% under-five stunting rate.
 
 ## Elevator pitch (long description)
 
-Indonesia's under-five stunting rate is **21.6 %** while the RPJMN 2024-2029 target is 14 %. The gap is rarely about knowledge — it's about turning a tight household budget into nutritionally sufficient meals on a given day, in a given region.
+Indonesia's under-five stunting rate is **19.8%** while the RPJMN 2024-2029 target is 14 %. The gap is rarely about knowledge — it's about turning a tight household budget into nutritionally sufficient meals on a given day, in a given region.
 
 **GiziGo answers that exact question** with the discipline of an Operations Research solver. Enter your family composition (toddler, school child, lactating mother, etc.), a daily budget, your region, and any dietary restrictions. Within a second, the system returns three optimal plans:
 
@@ -95,7 +95,7 @@ The implication is not that the budget is too low. It's that **AKG is reachable 
 | Field | Value |
 |---|---|
 | **Project name** | GiziGo |
-| **Tagline** | Turn every Rupiah into the most nutritious daily plate. ILP-grade meal optimisation for Indonesian families against the 21.6 % under-five stunting rate. |
+| **Tagline** | Turn every Rupiah into the most nutritious daily plate. ILP-grade meal optimisation for Indonesian families against the 19.8% under-five stunting rate. |
 | **Image** | docs/screenshots/02-bu-sari-success.png |
 | **Try it out link 1** | https://gizigo.jmola.my.id |
 | **Try it out link 2** | (GitHub repo URL — paste once repo is public) |

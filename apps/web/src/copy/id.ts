@@ -3,6 +3,8 @@ export const COPY = {
     title: "GiziGo",
     tagline: "Affordable daily meal plans that meet your family's nutritional needs.",
     subtitle: "Built on the Indonesian Food Composition Table (Kemenkes 2020) and Permenkes 28/2019 RDA values.",
+    stuntingBanner: "Indonesia stunting rate: 19.8% (SSGI 2024) — RPJMN target: 14.2% by 2029",
+    stuntingBannerSource: "https://kemkes.go.id/id/ssgi-2024-prevalensi-stunting-nasional-turun-menjadi-198",
   },
   household: {
     sectionTitle: "Family Members",
@@ -22,6 +24,11 @@ export const COPY = {
     options: {
       dki_jakarta: "DKI Jakarta",
       national_baseline: "National Median",
+      jawa_barat: "Jawa Barat (stunting 24.5%)",
+      jawa_tengah: "Jawa Tengah (stunting 20.8%)",
+      jawa_timur: "Jawa Timur (stunting 19.2%)",
+      sumatera_utara: "Sumatera Utara (stunting 25.8%)",
+      nusa_tenggara_timur: "NTT (stunting 37.2%)",
     },
   },
   restrictions: {
@@ -82,16 +89,16 @@ export const COPY = {
     restrictionsHint: "Try loosening restrictions so a feasible ingredient mix exists.",
   },
   sensitivity: {
-    title: "Price Scenario (What-If)",
-    subtitle: "Drag the percentage to see the cost impact.",
+    title: "Price Sensitivity",
+    subtitle: "Re-solve the LP under perturbed commodity prices.",
+    deltaCost: (d: number) =>
+      d === 0 ? "No change" : `${d > 0 ? "+" : ""}${new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(d)}`,
     presets: {
       cabai_50: "Chili +50%",
       telur_minus10: "Eggs −10%",
-    },
-    deltaCost: (delta: number) => {
-      const sign = delta > 0 ? "+" : delta < 0 ? "−" : "";
-      const abs = Math.abs(delta);
-      return `Δ Cost: ${sign}Rp ${abs.toLocaleString("id-ID")}`;
+      beras_15: "Rice +15% (El Niño)",
+      cabai_rawit_natal: "Chili +120% (Natal 2025)",
+      telur_lebaran: "Eggs +25% (Lebaran)",
     },
   },
   drawer: {
@@ -107,6 +114,10 @@ export const COPY = {
   },
   empty: {
     hero: "Fill in your family, set a budget, and press Calculate Plan to start.",
+  },
+  drawer: {
+    closeLabel: "Close recipe drawer",
+    titlePrefix: "Recipe:",
   },
   meals: {
     sarapan: "Breakfast",

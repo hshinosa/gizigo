@@ -26,6 +26,20 @@ const PRESET_PERTURBATIONS: Record<string, Perturbation[]> = {
     { ingredient_id: "tkpi_HR011", delta_pct: -10 },
     { ingredient_id: "tkpi_HR005", delta_pct: -10 },
   ],
+  beras_15: [
+    { ingredient_id: "tkpi_AR001", delta_pct: 15 },
+    { ingredient_id: "tkpi_AP005", delta_pct: 15 },
+    { ingredient_id: "tkpi_AR005", delta_pct: 15 },
+  ],
+  cabai_rawit_natal: [
+    { ingredient_id: "tkpi_NR014", delta_pct: 120 },
+    { ingredient_id: "tkpi_NR015", delta_pct: 120 },
+  ],
+  telur_lebaran: [
+    { ingredient_id: "tkpi_HR001", delta_pct: 25 },
+    { ingredient_id: "tkpi_HR011", delta_pct: 25 },
+    { ingredient_id: "tkpi_HR005", delta_pct: 25 },
+  ],
 };
 
 function readPersonaFromUrl(): PersonaId | null {
@@ -107,7 +121,7 @@ export default function App() {
     runSensitivity(next);
   }, [runSensitivity]);
 
-  const onPreset = useCallback((id: "cabai_50" | "telur_minus10") => {
+  const onPreset = useCallback((id: "cabai_50" | "telur_minus10" | "beras_15" | "cabai_rawit_natal" | "telur_lebaran") => {
     const next = PRESET_PERTURBATIONS[id];
     setPerturbations(next);
     runSensitivity(next);
@@ -148,6 +162,16 @@ export default function App() {
           >
             <Info className="h-3.5 w-3.5" /> Methods
           </button>
+        </div>
+        <div className="bg-brand-700 text-white text-xs py-1.5 px-5 text-center">
+          <a
+            href={COPY.app.stuntingBannerSource}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline opacity-90 hover:opacity-100"
+          >
+            {COPY.app.stuntingBanner}
+          </a>
         </div>
       </header>
 

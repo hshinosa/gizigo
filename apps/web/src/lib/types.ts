@@ -18,7 +18,15 @@ export const AkgCategoryZ = z.enum([
 ]);
 export type AkgCategory = z.infer<typeof AkgCategoryZ>;
 
-export const RegionZ = z.enum(["dki_jakarta", "national_baseline"]);
+export const RegionZ = z.enum([
+  "dki_jakarta",
+  "national_baseline",
+  "jawa_barat",
+  "jawa_tengah",
+  "jawa_timur",
+  "sumatera_utara",
+  "nusa_tenggara_timur",
+]);
 export type Region = z.infer<typeof RegionZ>;
 
 export const PlanTypeZ = z.enum(["cheapest", "balanced", "diverse"]);

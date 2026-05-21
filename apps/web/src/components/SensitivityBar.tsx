@@ -12,7 +12,7 @@ interface Props {
   costDelta: number;
   perturbations: Perturbation[];
   onChange: (next: Perturbation[]) => void;
-  onPreset: (presetId: "cabai_50" | "telur_minus10") => void;
+  onPreset: (presetId: "cabai_50" | "telur_minus10" | "beras_15" | "cabai_rawit_natal" | "telur_lebaran") => void;
 }
 
 export function SensitivityBar({ costDelta, perturbations, onChange, onPreset }: Props) {
@@ -60,7 +60,7 @@ export function SensitivityBar({ costDelta, perturbations, onChange, onPreset }:
           value={globalShift}
           onChange={(e) => applyGlobal(Number(e.target.value))}
           className="flex-1 accent-brand-500"
-          aria-label="Pergeseran harga global"
+          aria-label="Global price shift"
         />
         <span className="w-14 text-right text-sm font-medium tabular-nums text-slate-700">
           {globalShift > 0 ? "+" : ""}
@@ -83,11 +83,32 @@ export function SensitivityBar({ costDelta, perturbations, onChange, onPreset }:
         >
           {COPY.sensitivity.presets.telur_minus10}
         </button>
+        <button
+          type="button"
+          onClick={() => onPreset("beras_15")}
+          className="rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-xs text-orange-800 hover:bg-orange-100"
+        >
+          {COPY.sensitivity.presets.beras_15}
+        </button>
+        <button
+          type="button"
+          onClick={() => onPreset("cabai_rawit_natal")}
+          className="rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs text-red-800 hover:bg-red-100"
+        >
+          {COPY.sensitivity.presets.cabai_rawit_natal}
+        </button>
+        <button
+          type="button"
+          onClick={() => onPreset("telur_lebaran")}
+          className="rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs text-violet-800 hover:bg-violet-100"
+        >
+          {COPY.sensitivity.presets.telur_lebaran}
+        </button>
       </div>
 
       {perturbations.length > 0 && (
         <div className="mt-3 text-xs text-slate-500">
-          {perturbations.length} ingredient{perturbations.length === 1 ? '' : 's'} modified · cost delta {fmtIDR(Math.abs(costDelta))}
+          {perturbations.length} ingredient{perturbations.length === 1 ? "" : "s"} modified · cost delta {fmtIDR(Math.abs(costDelta))}
         </div>
       )}
     </section>

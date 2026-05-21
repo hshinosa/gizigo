@@ -16,7 +16,7 @@ The work is grounded in two government data sources:
 
 ## Why this matters
 
-Indonesia's under-five stunting rate is **21.6 % (SSGI 2024)** while the RPJMN 2024-2029 target is 14 %. Stunting is rooted in the first 1,000 days of life, where the limiting factor is most often *cost-feasible nutrition*, not knowledge. GiziGo attacks that gap directly: it answers *"given my budget today, what is the most nutritious mix of cheap local foods I can buy?"* — and tells the user exactly when the budget falls short and by how much.
+Indonesia's under-five stunting rate is **19.8% (SSGI 2024)** while the RPJMN 2024-2029 target is 14 %. Stunting is rooted in the first 1,000 days of life, where the limiting factor is most often *cost-feasible nutrition*, not knowledge. GiziGo attacks that gap directly: it answers *"given my budget today, what is the most nutritious mix of cheap local foods I can buy?"* — and tells the user exactly when the budget falls short and by how much.
 
 ## What's inside
 
@@ -64,7 +64,7 @@ A full mathematical formulation lives in [`docs/ilp-formulation.md`](docs/ilp-fo
 | Track | How GiziGo fits |
 |---|---|
 | **Best HealthTech Project** | Direct attack on stunting via personalized AKG planning grounded in Permenkes 28/2019. Provides an audit layer for the *Makan Bergizi Gratis* (MBG) program. |
-| **Best Social Impact** | Targets a 21.6 % national stunting rate; UI in English with three demo personas anchored in real Indonesian household and program-operator profiles |
+| **Best Social Impact** | Targets a 19.8% national stunting rate; UI in English with three demo personas anchored in real Indonesian household and program-operator profiles |
 | **Top 3 Grand** | Operations-research depth (ILP + sensitivity + bisection) plus a polished, end-to-end live deployment with concrete policy relevance to a Rp 71-trillion national program |
 
 ## Two demo personas + one policy use-case

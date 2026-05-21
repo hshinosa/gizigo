@@ -80,10 +80,12 @@ def load_catalog(path: str | None = None) -> Catalog:
     )
 
 
-@functools.lru_cache(maxsize=2)
+@functools.lru_cache(maxsize=8)
 def load_prices(region: Region) -> PriceTable:
-    fname = "data/prices/dki_jakarta.yaml" if region == "dki_jakarta" else "data/prices/national_baseline.yaml"
+    fname = f"data/prices/{region}.yaml"
     p = (_project_root() / fname).resolve()
+    if not p.exists():
+        p = (_project_root() / "data/prices/national_baseline.yaml").resolve()
     payload = yaml.safe_load(p.read_text(encoding="utf-8"))
     prices = {iid: float(v["price_per_100g_idr"]) for iid, v in payload.get("ingredients", {}).items()}
     return PriceTable(region=region, prices_per_100g=prices)

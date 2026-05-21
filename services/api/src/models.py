@@ -34,7 +34,15 @@ AkgCategory = Literal[
     "lactating_mother_0_6m",
     "pregnant_trimester_2_3",
 ]
-Region = Literal["dki_jakarta", "national_baseline"]
+Region = Literal[
+    "dki_jakarta",
+    "national_baseline",
+    "jawa_barat",
+    "jawa_tengah",
+    "jawa_timur",
+    "sumatera_utara",
+    "nusa_tenggara_timur",
+]
 SolveStatus = Literal["optimal", "infeasible", "infeasible_relaxed"]
 
 

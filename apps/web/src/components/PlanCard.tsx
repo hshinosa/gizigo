@@ -149,7 +149,7 @@ export function PlanCard({ plan, onOpenDrawer }: Props) {
               strokeWidth={2.5}
             />
             <Tooltip
-              formatter={(v: number) => [`${v}%`, "Achievement"]}
+              formatter={(v: unknown) => [`${Number(v)}%`, "Achievement"]}
               contentStyle={{ fontSize: 11, borderRadius: 8 }}
             />
           </RadarChart>
