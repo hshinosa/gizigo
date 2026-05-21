@@ -32,8 +32,8 @@ export const PERSONAS: Record<PersonaId, OptimizeRequest> = {
     members: [
       { member_id: "m1", label: "Primary student", akg_category: "child_4_6" },
     ],
-    daily_budget_idr: 12000,
-    region: "national_baseline",
+    daily_budget_idr: 9500,
+    region: "nusa_tenggara_timur",
     restrictions: [],
     plan_types: ["cheapest", "balanced", "diverse"],
   },

@@ -1,8 +1,79 @@
-# Demo Script (≤ 3-minute video, captions-only)
+# Demo Script (3-minute video)
 
 Live URL: **https://gizigo.jmola.my.id**
-Code: **(repo URL — pasted into Devpost when public)**
+Code: **(repo URL)** — public on submission.
 
+Target: **2:30-3:00 minutes**. Aspect ratio: 1920×1080 H.264, ≤ 200 MB.
+
+---
+
+## Shot 1 — Hook (0:00 → 0:15)
+
+**On-screen**: Browser open to gizigo.jmola.my.id. Point to the dark green stunting banner.
+
+> "Indonesia's stunting rate is 19.8%. The government is spending Rp 71 trillion on free school meals. But is the budget actually enough? GiziGo answers that with a linear program — not a chatbot."
+
+---
+
+## Shot 2 — Bu Sari (feasible, 3 plans) (0:15 → 1:00)
+
+**Action**: Click **"Bu Sari's Family"** chip. Plans appear. Pan over the 3 radar charts.
+
+> "Bu Sari's family — 4 members, Rp 65k/day, DKI Jakarta. Three plans, three different objectives. Cheapest at Rp 60,534. Most Balanced at Rp 65,000 — the radar chart is rounder, iron overshoot pulled from 221% down to 185%. Most Varied at Rp 63,560 — 11 food groups, 14 ingredients. Three solvers, three optima, all in 52 milliseconds."
+
+---
+
+## Shot 3 — Price shock (1:00 → 1:30)
+
+**Action**: Click **"Chili +120% (Natal 2025)"** preset. Then **"Rice +15% (El Niño)"**.
+
+> "What happens when chili hits Rp 90k/kg — the actual price in December 2025? The LP re-solves in real time. Not a linear extrapolation — an actual new optimum. Now add a rice shock from El Niño. The system tells you exactly how much more you need to spend."
+
+---
+
+## Shot 4 — MBG NTT (infeasible) (1:30 → 2:15)
+
+**Action**: Click **"MBG SPPG — NTT"** chip. InfeasibilityPanel renders. Point to "NTT (stunting 37.2%)" region button. Click **"Raise to minimum budget"**.
+
+> "One student, Rp 9,500/day, Nusa Tenggara Timur — Indonesia's province with 37.2% stunting and prices 18% above the national median. The LP is infeasible. Minimum feasible budget: Rp 11,000 — above the MBG envelope of Rp 10k. The optimizer proves what the public debate has been asking: the budget is not enough in NTT. One tap raises to the minimum and the plans appear."
+
+---
+
+## Shot 5 — SPPG Operator + CSV (2:15 → 2:45)
+
+**Action**: Click **"SPPG Operator"** chip. Plans appear. Click the CSV download button.
+
+> "Switch to the SPPG operator view — 100 students, Rp 1 million/day. Cheapest plan: Rp 9,872 per student. Click download — a procurement CSV with ingredient IDs, grams, and costs, ready to paste into any procurement system. This is what BGN's 5,000 SPPG kitchens need."
+
+---
+
+## Shot 6 — Close (2:45 → 3:00)
+
+**On-screen**: Architecture diagram or code repo.
+
+> "Built solo in 36 hours. FastAPI, PuLP, CBC, React, live at gizigo.jmola.my.id. 1,146 ingredients from TKPI 2020, 14 AKG categories from Permenkes 28/2019, 7 provinces. The math is in the README. Thank you."
+
+---
+
+## Recording checklist
+
+- [ ] OBS at 1920×1080, 30 fps, H.264
+- [ ] Browser zoomed to 110%, bookmarks bar hidden, clean profile
+- [ ] DevTools closed, cursor visible with click highlight
+- [ ] Voiceover recorded separately (Audacity), mixed in post
+
+## Render
+
+```bash
+ffmpeg -i raw.mkv -c:v libx264 -preset slow -crf 22 -c:a aac -b:a 192k \
+       -movflags +faststart gizigo-demo.mp4
+```
+
+Target: **40-80 MB**. Upload to YouTube as **Unlisted**. Paste URL into Devpost.
+
+## Last-resort fallback
+
+If recording goes sideways, the code-side ship is still complete: live URL, README with screenshots, all docs. A static submission with no video will still hit *Innovation & Creativity*; the video boosts *Presentation and Documentation*.
 Target: 1920×1080 H.264, ≤ 200 MB, captions-only (no voiceover), runs muted on Devpost preview.
 
 ---

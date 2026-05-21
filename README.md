@@ -67,37 +67,41 @@ A full mathematical formulation lives in [`docs/ilp-formulation.md`](docs/ilp-fo
 | **Best Social Impact** | Targets a 19.8% national stunting rate; UI in English with three demo personas anchored in real Indonesian household and program-operator profiles |
 | **Top 3 Grand** | Operations-research depth (ILP + sensitivity + bisection) plus a polished, end-to-end live deployment with concrete policy relevance to a Rp 71-trillion national program |
 
-## Two demo personas + one policy use-case
+## Four demo personas
 
-1. **Bu Sari's Family** — father (19-49), Bu Sari (lactating mother), child 5 yrs, toddler. Rp 60,000/day, region DKI Jakarta. Optimizer returns ~Rp 35,000 across 5+ food groups, all eight AKG nutrients ≥ 100 %.
-2. **Extreme Budget** — 5-member household, region National Median, Rp 25,000/day. Optimizer returns *infeasible*, surfaces the minimum estimated budget at Rp 41,000-63,000 (depending on persona shape), and lists the deficit nutrients (energy, protein, vitamin A, calcium).
-3. **MBG SPPG** — one primary-school student, Rp 12,000/day, region National Median. Models the per-portion budget of *Makan Bergizi Gratis* (Free Nutritious Meals), Indonesia's flagship Rp 71-trillion school-meal program launched January 2025 under Perpres 83/2024.
+1. **Bu Sari's Family** — father (19-49), Bu Sari (lactating mother), child 5 yrs, toddler. Rp 65,000/day, DKI Jakarta. Three differentiated plans: cheapest Rp 60,534 / balanced Rp 65,000 / diverse Rp 63,560 (11 food groups, 12 ingredients). All 9 AKG nutrients ≥ 100%.
+2. **Extreme Budget** — 5-member household, National Median, Rp 25,000/day. Infeasible — minimum Rp 68,000, deficits: energy, protein, vitamin A, calcium.
+3. **MBG SPPG — NTT** — one primary-school student, Rp 9,500/day, **Nusa Tenggara Timur** (stunting 37.2%, prices 18% above national median due to logistics). **Infeasible** — minimum Rp 11,000. This is the key policy finding: the Rp 10k MBG envelope is *not sufficient* in Indonesia's highest-stunting province.
+4. **SPPG Operator** — one representative student, Rp 1,000,000/day (= Rp 10k × 100 portions). Models a BGN SPPG kitchen procuring for 100 students. Cheapest plan Rp 9,872/student — Rp 128 headroom from the Rp 10k envelope.
 
-All three personas are baked into the UI as one-click chips so the judge can reproduce them in 2 seconds. They also have **deep-link URLs** that auto-load and auto-calculate:
+All four personas are one-click chips with **deep-link URLs** that auto-load and auto-calculate:
 
 - https://gizigo.jmola.my.id/?persona=bu_sari
 - https://gizigo.jmola.my.id/?persona=anggaran_ekstrem
 - https://gizigo.jmola.my.id/?persona=mbg_sppg
+- https://gizigo.jmola.my.id/?persona=sppg_operator
 
-## Policy implication: Makan Bergizi Gratis (MBG)
+## Policy implication: Makan Bergizi Gratis (MBG) + Province Inequality
 
-The MBG program targets ~82.9 million beneficiaries by 2029 with a per-portion budget reported in the press at **Rp 10,000-15,000**. Public debate has questioned whether that envelope is sufficient to meet a child's daily nutritional needs.
+The MBG program (Perpres 83/2024, Rp 71T budget) targets ~82.9 million beneficiaries by 2029 with a per-portion budget of **Rp 10,000-15,000**. Public debate has questioned whether that envelope is sufficient.
 
-GiziGo answers that question quantitatively. For a single primary-school child (`child_4_6` AKG category) using national-median prices, the optimizer reports:
+GiziGo answers this with two lenses:
 
-| Plan | Cost | Food groups | Notes |
+**National median**: At Rp 9,872/student, the cheapest AKG-compliant plan leaves only Rp 128-3,000 headroom from the Rp 10-12k envelope. Feasible — but barely.
+
+**NTT (stunting 37.2%, prices ×1.18)**: At Rp 9,500/student, the LP is **infeasible**. Minimum feasible budget: Rp 11,000. The MBG envelope of Rp 10k is not sufficient in Indonesia's highest-stunting province. The optimizer surfaces exactly which nutrients are short and by how much.
+
+**Price shock sensitivity**: Click "Chili +120% (Natal 2025)" — the actual peak price recorded in December 2025 (Rp 80-90k/kg). The LP re-solves in 100ms and shows the new cost. Click "Rice +15% (El Niño)" to model a drought scenario. These are not linear extrapolations — they are actual re-optimisations.
+
+**7 regions available**: DKI Jakarta, National Median, Jawa Barat (24.5%), Jawa Tengah (20.8%), Jawa Timur (19.2%), Sumatera Utara (25.8%), NTT (37.2%). Each region has its own price table reflecting logistics and distribution costs. The stunting rate is shown on each region button so the user understands the context.
+
+| Plan | Cost (NTT) | Cost (National) | Δ |
 |---|---|---|---|
-| Cheapest | **Rp 9,472** | 5 | Pure cost LP. AKG met, iron 200%+ from concentration on cheap protein |
-| Most Balanced | **Rp 10,827** | 5 | Penalises nutrient over-shoot beyond 130% RDA — flatter achievement profile |
-| Most Varied | **Rp 9,945** | **6** | MIP that maximises distinct food groups within +5% cost headroom |
+| Cheapest | Infeasible at Rp 9.5k | Rp 9,872 | — |
+| Most Balanced | Infeasible at Rp 9.5k | Rp 11,290 | — |
+| Most Varied | Infeasible at Rp 9.5k | Rp 10,366 | — |
 
-**The headline finding**: the MBG per-portion budget of Rp 10-12k has only ~Rp 500-3,000 of headroom over the optimizer-derived AKG floor of Rp 9,472 for primary-age children. That is much narrower than press estimates and matches the public concern that the budget is *just* sufficient when procurement is optimized — and infeasible otherwise.
-
-For Bu Sari's family at Rp 65k/day, the same three-plan output produces *visibly different* meals: Cheapest Rp 60,534 / 7 groups / 9 ingredients, Most Balanced Rp 65,000 / 7 groups / 7 ingredients (over-shoot smoothed), Most Varied Rp 63,560 / **11 groups, 12 ingredients**. Each plan card surfaces a 9-bar AKG achievement strip — including **fiber**, an under-tracked nutrient that the program-level MBG KPI itself does not surface. The AKG floor was bumped from Rp 60k to Rp 65k after fiber was added: at Rp 60k the LP became infeasible by Rp 533, exactly the kind of constraint a chatbot would not catch.
-
-GiziGo can therefore serve SPPG (*Satuan Pelayanan Pemenuhan Gizi*, the program's local kitchen units) as a deterministic audit and procurement-planning layer:
-
-- Plug in the actual local prices each SPPG faces and verify that the menu they propose meets AKG.
+**The headline finding**: the MBG budget is sufficient at national-median prices but fails in NTT — Indonesia's province with the highest stunting rate. GiziGo is the audit layer that catches this before the kitchen does.
 - Plug in the budget envelope and let the optimizer return the cheapest AKG-compliant ingredient mix.
 - Use the sensitivity slider to plan against price shocks (chili, eggs, beef) before they hit operations.
 

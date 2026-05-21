@@ -16,15 +16,19 @@ Turn every Rupiah into the most nutritious daily plate. ILP-grade meal optimisat
 
 Indonesia's under-five stunting rate is **19.8%** while the RPJMN 2024-2029 target is 14 %. The gap is rarely about knowledge — it's about turning a tight household budget into nutritionally sufficient meals on a given day, in a given region.
 
-**GiziGo answers that exact question** with the discipline of an Operations Research solver. Enter your family composition (toddler, school child, lactating mother, etc.), a daily budget, your region, and any dietary restrictions. Within a second, the system returns three optimal plans:
+**GiziGo answers that exact question** with the discipline of an Operations Research solver. Enter your family composition (toddler, school child, lactating mother, etc.), a daily budget, your **province** (7 regions including the 5 highest-stunting provinces), and any dietary restrictions. Within a second, the system returns three optimal plans:
 
 - **Cheapest** — pure cost minimisation under all nine tracked AKG nutrients (energy, protein, fat, carbohydrate, **fiber**, iron, zinc, vitamin A, calcium).
-- **Most Balanced** — cost plus a slack penalty so AKGs are met as evenly as possible.
-- **Most Varied** — an iterative-substitution heuristic that maximises distinct food groups while staying near optimal.
+- **Most Balanced** — LP with over-shoot penalty so nutrients are met as evenly as possible (no single nutrient at 300%+ while others barely clear the floor).
+- **Most Varied** — a proper MIP that maximises distinct food groups within 5% cost headroom.
 
-When the budget cannot meet AKG, GiziGo runs a **bisection search on the budget** to surface the *minimum feasible budget* and the nutrient deficits, with a single CTA that raises to the minimum and re-runs the optimiser. A **sensitivity-analysis slider** re-solves the LP under perturbed prices in real time — slide chili up 50 %, watch the *actual new optimum* (not a linear extrapolation) appear.
+When the budget cannot meet AKG, GiziGo runs a **bisection search on the budget** to surface the *minimum feasible budget* and the nutrient deficits, with a single CTA that raises to the minimum and re-runs the optimiser. A **sensitivity-analysis slider** re-solves the LP under perturbed prices in real time — five presets model real commodity shocks: Chili +120% (Natal 2025 actual peak), Rice +15% (El Niño), Eggs +25% (Lebaran 2026).
 
-The UI is in English for the judges; persona names retain their Indonesian honorifics ("Bu Sari", "MBG SPPG") as proper nouns. The three demo personas anchor the system in real Indonesian use-cases — a household-budget family, an extreme-budget infeasibility flow, and the **MBG SPPG** persona that models the per-portion budget of *Makan Bergizi Gratis*, Indonesia's flagship Rp 71-trillion school-meal program launched January 2025 under Perpres 83/2024. The optimizer answers a question the program is being publicly debated on: *is the per-portion budget enough to meet a child's daily AKG?* The 1,146-ingredient nutrient catalogue comes from an idempotent scrape of panganku.org (the Kemenkes-affiliated re-publisher of TKPI 2020). AKG values come from Permenkes 28/2019. Retail prices come from infopangan.jakarta.go.id and PIHPS Bank Indonesia. Everything is committed to the repo for reproducibility — `make data` re-builds the entire dataset.
+The four demo personas anchor the system in real Indonesian use-cases:
+1. **Bu Sari's Family** — household budget, DKI Jakarta, 3 differentiated plans
+2. **Extreme Budget** — infeasibility flow, minimum budget surfaced
+3. **MBG SPPG — NTT** — one student, Rp 9,500/day, **Nusa Tenggara Timur** (stunting 37.2%, prices 18% above national). **Infeasible** — minimum Rp 11,000. The MBG Rp 10k envelope fails in Indonesia's highest-stunting province.
+4. **SPPG Operator** — 100-student institutional procurement at Rp 10k/portion, CSV export for procurement systems
 
 ## What it does
 

@@ -44,7 +44,7 @@ export const COPY = {
     options: {
       bu_sari: "Bu Sari's Family (4 members, Rp 65k/day)",
       anggaran_ekstrem: "Extreme Budget (5 members, Rp 25k/day)",
-      mbg_sppg: "MBG SPPG (1 student, Rp 12k/day)",
+      mbg_sppg: "MBG SPPG — NTT (1 student, Rp 9.5k/day)",
       sppg_operator: "SPPG Operator (100 students, Rp 1M/day)",
     },
   },
