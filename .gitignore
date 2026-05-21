@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg
+
+# Node
+node_modules/
+apps/web/dist/
+apps/web/.vite/
+*.local
+
+# Env
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Data raw cache (committed selectively via -f flag in scrape script)
+# We commit normalized data but the raw scrape cache is regenerable.
+# To re-include, use `git add -f data/raw/panganku/`
+data/raw/panganku/*.html
+!data/raw/panganku/_index.html
+
+# Logs
+*.log
+logs/
+
+# Submission bundle
+submission-bundle/
+*.tar.gz
+*.zip
