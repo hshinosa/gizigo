@@ -1,0 +1,20 @@
+[Unit]
+Description=GiziGo FastAPI service
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/gizigo
+EnvironmentFile=/opt/gizigo/services/api/.env
+Environment=PYTHONHASHSEED=0
+ExecStart=/opt/gizigo/services/api/.venv/bin/uvicorn --app-dir /opt/gizigo/services/api src.main:app --host 127.0.0.1 --port 8001 --workers 1 --proxy-headers
+Restart=on-failure
+RestartSec=3
+KillSignal=SIGINT
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

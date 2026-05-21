@@ -7,7 +7,7 @@ name = "gizigo-api"
 version = "0.1.0"
 description = "GiziGo - meal-plan optimizer API for ALGOfest 2026"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.10"
 license = "MIT"
 authors = [{ name = "GiziGo Team" }]
 
@@ -44,7 +44,7 @@ include = ["src*"]
 
 [tool.ruff]
 line-length = 110
-target-version = "py313"
+target-version = "py310"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "SIM"]
