@@ -66,9 +66,9 @@ export function PlanCard({ plan, onOpenDrawer }: Props) {
           <button
             type="button"
             onClick={() => onOpenDrawer(plan)}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm border border-slate-200 hover:border-brand-300"
+            className="shrink-0 inline-flex items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm border border-slate-200 hover:border-brand-300 whitespace-nowrap"
           >
-            <Soup className="h-3.5 w-3.5" /> Lihat Resep
+            <Soup className="h-3.5 w-3.5" /> Resep
           </button>
         )}
       </header>

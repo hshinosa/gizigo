@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 540" width="100%" height="auto" font-family="Plus Jakarta Sans, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#eef9f3"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <rect width="980" height="540" fill="url(#bg)"/>
+
+  <text x="40" y="40" font-size="22" font-weight="700" fill="#0f172a">GiziGo — Architecture</text>
+  <text x="40" y="62" font-size="13" fill="#475569">Operations-research meal planner. ILP solved by COIN-OR CBC. Live at https://gizigo.jmola.my.id</text>
+
+  <!-- Browser layer -->
+  <rect x="60" y="100" width="280" height="170" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="80" y="128" font-size="11" font-weight="700" fill="#1d623b" letter-spacing="2">BROWSER</text>
+  <text x="80" y="148" font-size="14" font-weight="700" fill="#0f172a">apps/web (Vite + React 18 + Tailwind)</text>
+  <text x="80" y="170" font-size="12" fill="#334155">• HouseholdForm + persona menu</text>
+  <text x="80" y="188" font-size="12" fill="#334155">• PlanCard with 8 AKG bars</text>
+  <text x="80" y="206" font-size="12" fill="#334155">• SensitivityBar (debounced re-solve)</text>
+  <text x="80" y="224" font-size="12" fill="#334155">• InfeasibilityPanel + RecipeDrawer</text>
+  <text x="80" y="248" font-size="11" fill="#64748b">SPA at /var/www/gizigo, served by nginx</text>
+
+  <!-- API layer -->
+  <rect x="380" y="100" width="320" height="170" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="400" y="128" font-size="11" font-weight="700" fill="#1d623b" letter-spacing="2">API</text>
+  <text x="400" y="148" font-size="14" font-weight="700" fill="#0f172a">services/api (FastAPI 0.136 / uvicorn)</text>
+  <text x="400" y="170" font-size="12" fill="#334155">• POST /v1/optimize → ILP (PuLP + CBC)</text>
+  <text x="400" y="188" font-size="12" fill="#334155">• POST /v1/sensitivity → re-solve under price Δ</text>
+  <text x="400" y="206" font-size="12" fill="#334155">• POST /v1/humanize → templated meal narration</text>
+  <text x="400" y="224" font-size="12" fill="#334155">• GET  /v1/health</text>
+  <text x="400" y="248" font-size="11" fill="#64748b">systemd, gizigo-api.service, single worker, port 8001</text>
+
+  <!-- Data layer -->
+  <rect x="740" y="100" width="200" height="170" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="760" y="128" font-size="11" font-weight="700" fill="#1d623b" letter-spacing="2">CACHE</text>
+  <text x="760" y="148" font-size="14" font-weight="700" fill="#0f172a">Postgres 16 (Docker)</text>
+  <text x="760" y="170" font-size="12" fill="#334155">• plans(plan_hash PK,</text>
+  <text x="760" y="188" font-size="12" fill="#334155">  request_json JSONB,</text>
+  <text x="760" y="206" font-size="12" fill="#334155">  response_json JSONB)</text>
+  <text x="760" y="248" font-size="11" fill="#64748b">127.0.0.1:5434, /var/lib/gizigo-pg</text>
+
+  <!-- Arrows -->
+  <line x1="340" y1="180" x2="380" y2="180" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="350" y="172" font-size="11" fill="#475569">HTTPS</text>
+  <line x1="700" y1="180" x2="740" y2="180" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="708" y="172" font-size="11" fill="#475569">asyncpg</text>
+
+  <!-- Data ingestion swim lane -->
+  <rect x="60" y="320" width="880" height="180" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="80" y="346" font-size="11" font-weight="700" fill="#1d623b" letter-spacing="2">DATA INGESTION (committed, reproducible)</text>
+
+  <!-- Boxes inside swim lane -->
+  <rect x="80" y="360" width="200" height="120" rx="10" fill="#eef9f3" stroke="#aee2c4" stroke-width="1.2"/>
+  <text x="92" y="380" font-size="12" font-weight="700" fill="#0f172a">panganku.org</text>
+  <text x="92" y="396" font-size="11" fill="#334155">scrape_panganku.py</text>
+  <text x="92" y="412" font-size="11" fill="#334155">data/raw/panganku/</text>
+  <text x="92" y="428" font-size="11" fill="#334155">1146 detail HTMLs (8 min)</text>
+  <text x="92" y="464" font-size="10" fill="#64748b">TKPI 2020 Kemenkes RI</text>
+
+  <line x1="280" y1="420" x2="320" y2="420" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="320" y="360" width="240" height="120" rx="10" fill="#f0f9ff" stroke="#bae6fd" stroke-width="1.2"/>
+  <text x="332" y="380" font-size="12" font-weight="700" fill="#0f172a">normalize_panganku.py</text>
+  <text x="332" y="396" font-size="11" fill="#334155">8 nutrients per 100 g, edible</text>
+  <text x="332" y="412" font-size="11" fill="#334155">data/normalized/ingredients.json</text>
+  <text x="332" y="428" font-size="11" fill="#334155">catalog_hash = 2c14daf…</text>
+  <text x="332" y="464" font-size="10" fill="#64748b">0 quarantined rows</text>
+
+  <line x1="560" y1="420" x2="600" y2="420" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="600" y="360" width="320" height="120" rx="10" fill="#fdf4ff" stroke="#f5d0fe" stroke-width="1.2"/>
+  <text x="612" y="380" font-size="12" font-weight="700" fill="#0f172a">Optimizer inputs</text>
+  <text x="612" y="396" font-size="11" fill="#334155">akg/permenkes-28-2019.json (7 categories)</text>
+  <text x="612" y="412" font-size="11" fill="#334155">prices/dki_jakarta.yaml + national_baseline.yaml</text>
+  <text x="612" y="428" font-size="11" fill="#334155">substitutes.yaml (32 pairs)</text>
+  <text x="612" y="444" font-size="11" fill="#334155">cooking-method.yaml (41 overrides)</text>
+  <text x="612" y="464" font-size="10" fill="#64748b">All hand-curated, committed</text>
+
+  <!-- Footer caption -->
+  <text x="40" y="528" font-size="11" fill="#64748b">Solo build, hackathon-algofest 2026 · MIT License · LP/MIP via PuLP+CBC · TLS via Let's Encrypt</text>
+</svg>
