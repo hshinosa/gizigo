@@ -174,7 +174,7 @@ export function HouseholdForm({ value, onChange, onSubmit, isLoading }: Props) {
             value={value.daily_budget_idr}
             onChange={(e) => setBudget(Number(e.target.value))}
             min={0}
-            step={1000}
+            step={500}
             className="w-32 rounded-lg border border-slate-200 px-3 py-2 text-sm text-right tabular-nums focus:border-brand-400"
             aria-label={COPY.budget.label}
           />
