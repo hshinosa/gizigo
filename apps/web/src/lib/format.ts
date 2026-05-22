@@ -1,5 +1,12 @@
-export const fmtIDR = (value: number): string =>
-  `Rp ${Math.round(value).toLocaleString("id-ID")}`;
+export const fmtIDR = (value: number): string => {
+  const rounded = Math.round(value);
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(rounded);
+};
 
 export const fmtNutrient = (value: number, unit: string): string => {
   const v = unit.startsWith("µg") || unit === "kcal" || unit === "mg"

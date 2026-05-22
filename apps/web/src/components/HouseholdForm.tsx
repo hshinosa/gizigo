@@ -161,9 +161,9 @@ export function HouseholdForm({ value, onChange, onSubmit, isLoading }: Props) {
         <div className="flex items-center gap-3">
           <input
             type="range"
-            min={5000}
+            min={1000}
             max={300000}
-            step={1000}
+            step={500}
             value={value.daily_budget_idr}
             onChange={(e) => setBudget(Number(e.target.value))}
             className="flex-1 accent-brand-500"
