@@ -186,23 +186,43 @@ export function HouseholdForm({ value, onChange, onSubmit, isLoading }: Props) {
         <h3 className="flex items-center gap-2 font-semibold text-slate-800">
           <MapPin className="h-4 w-4 text-brand-500" /> {COPY.region.sectionTitle}
         </h3>
-        <div className="flex flex-wrap gap-2">
-          {(Object.keys(COPY.region.options) as Region[]).map((r) => (
-            <button
-              key={r}
-              type="button"
-              onClick={() => onChange({ ...value, region: r })}
-              className={cn(
-                "rounded-lg px-3 py-2 text-xs border",
-                value.region === r
-                  ? "border-brand-400 bg-brand-50 text-brand-800 font-medium"
-                  : "border-slate-200 text-slate-600 hover:border-brand-200",
-              )}
-            >
-              {COPY.region.options[r]}
-            </button>
-          ))}
-        </div>
+        <select
+          value={value.region}
+          onChange={(e) => onChange({ ...value, region: e.target.value as Region })}
+          className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+        >
+          <optgroup label="Jawa &amp; Bali">
+            <option value="dki_jakarta">DKI Jakarta (stunting 14.0%)</option>
+            <option value="yogyakarta">DI Yogyakarta (14.8%)</option>
+            <option value="jawa_barat">Jawa Barat (24.5%)</option>
+            <option value="banten">Banten (24.5%)</option>
+            <option value="jawa_tengah">Jawa Tengah (20.8%)</option>
+            <option value="jawa_timur">Jawa Timur (19.2%)</option>
+          </optgroup>
+          <optgroup label="Sumatera">
+            <option value="national_baseline">National Median (19.8%)</option>
+            <option value="aceh">Aceh (31.2%)</option>
+            <option value="sumatera_utara">Sumatera Utara (25.8%)</option>
+          </optgroup>
+          <optgroup label="Kalimantan">
+            <option value="kalimantan_barat">Kalimantan Barat (29.8%)</option>
+          </optgroup>
+          <optgroup label="Sulawesi">
+            <option value="sulawesi_selatan">Sulawesi Selatan (27.4%)</option>
+            <option value="sulawesi_barat">Sulawesi Barat (35.0%)</option>
+          </optgroup>
+          <optgroup label="Nusa Tenggara">
+            <option value="nusa_tenggara_barat">NTB (32.7%)</option>
+            <option value="nusa_tenggara_timur">NTT (37.2%) ← highest</option>
+          </optgroup>
+          <optgroup label="Maluku &amp; Papua">
+            <option value="maluku">Maluku (26.1%)</option>
+            <option value="papua">Papua (34.6%)</option>
+          </optgroup>
+        </select>
+        <p className="text-xs text-slate-500">
+          Source: SSGI 2024 (Kemenkes RI). Prices estimated from PIHPS BI regional data.
+        </p>
       </div>
 
       <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm space-y-3">

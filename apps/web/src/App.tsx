@@ -146,13 +146,13 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-6xl px-5 py-5 flex items-center gap-3">
-          <div className="grid h-10 w-10 place-items-center rounded-xl bg-brand-500 text-white shadow-sm">
-            <Sparkles className="h-5 w-5" />
-          </div>
+        <div className="mx-auto max-w-7xl px-6 py-4 flex items-center gap-4">
           <div className="flex-1">
-            <h1 className="text-xl font-bold text-slate-900">{COPY.app.title}</h1>
-            <p className="text-xs text-slate-600">{COPY.app.tagline}</p>
+            <a href="/" className="inline-flex items-baseline gap-0.5">
+              <span className="text-2xl font-black tracking-tight text-brand-700 border-b-2 border-brand-500">Gizi</span>
+              <span className="text-2xl font-black tracking-tight text-slate-900">Go</span>
+            </a>
+            <p className="text-xs text-slate-500 mt-0.5">{COPY.app.tagline}</p>
           </div>
           <button
             type="button"
@@ -163,7 +163,7 @@ export default function App() {
             <Info className="h-3.5 w-3.5" /> Methods
           </button>
         </div>
-        <div className="bg-brand-700 text-white text-xs py-1.5 px-5 text-center">
+        <div className="bg-brand-700 text-white text-xs py-2 px-6 text-center">
           <a
             href={COPY.app.stuntingBannerSource}
             target="_blank"
@@ -175,8 +175,8 @@ export default function App() {
         </div>
       </header>
 
-      <main className="flex-1 mx-auto max-w-6xl w-full px-5 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <section className="lg:col-span-5">
+      <main className="flex-1 mx-auto max-w-7xl w-full px-6 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <section className="lg:col-span-4">
           <HouseholdForm
             value={request}
             onChange={(next) => {
@@ -191,7 +191,7 @@ export default function App() {
           />
         </section>
 
-        <section className="lg:col-span-7 space-y-5">
+        <section className="lg:col-span-8 space-y-5">
           {status === "idle" && (
             <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center">
               <Sparkles className="mx-auto h-8 w-8 text-brand-500" />

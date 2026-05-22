@@ -54,6 +54,12 @@ function downloadCSV(plan: Plan) {
   URL.revokeObjectURL(url);
 }
 
+const ACCENT_BORDER: Record<Plan["plan_type"], string> = {
+  cheapest: "border-l-brand-500",
+  balanced: "border-l-sky-500",
+  diverse: "border-l-fuchsia-500",
+};
+
 export function PlanCard({ plan, onOpenDrawer }: Props) {
   const [expanded, setExpanded] = useState(true);
 
@@ -67,19 +73,22 @@ export function PlanCard({ plan, onOpenDrawer }: Props) {
       data-print-card
       data-plan-type={plan.plan_type}
       className={cn(
-        "rounded-2xl border bg-white shadow-sm overflow-hidden",
-        ACCENT[plan.plan_type],
+        "rounded-2xl border border-slate-200 border-l-4 bg-white shadow-sm overflow-hidden",
+        ACCENT_BORDER[plan.plan_type],
       )}
     >
       <header className="px-5 py-4 flex items-start justify-between gap-3">
-        <div>
-          <h3 className={cn("text-lg font-semibold", ACCENT_TEXT[plan.plan_type])}>
+        <div className="min-w-0">
+          <p className={cn("text-[11px] font-semibold uppercase tracking-wider", ACCENT_TEXT[plan.plan_type])}>
             {plan.plan_label}
-          </h3>
-          <div className="mt-1 flex items-center gap-2 text-xs text-slate-600">
+          </p>
+          <p className="text-2xl font-black tabular-nums text-slate-900 mt-0.5 leading-none">
+            {fmtIDR(plan.total_cost_idr)}
+          </p>
+          <div className="mt-1.5 flex items-center gap-2 text-xs text-slate-500">
             <span>{COPY.plans.foodGroupCount(plan.food_group_count)}</span>
-            <span>•</span>
-            <span className="font-semibold tabular-nums">{fmtIDR(plan.total_cost_idr)}</span>
+            <span>·</span>
+            <span>{plan.ingredients.length} ingredients</span>
           </div>
           {plan.diverse_constraint_relaxed && (
             <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs text-amber-800">
@@ -126,7 +135,7 @@ export function PlanCard({ plan, onOpenDrawer }: Props) {
       </header>
 
       <div className="px-5 pb-2">
-        <ResponsiveContainer width="100%" height={180}>
+        <ResponsiveContainer width="100%" height={220}>
           <RadarChart
             data={plan.achievement.map((a) => ({
               nutrient: COPY.akg.nutrient[a.nutrient] ?? a.nutrient,

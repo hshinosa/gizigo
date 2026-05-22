@@ -68,39 +68,39 @@ export function SensitivityBar({ costDelta, perturbations, onChange, onPreset }:
         </span>
       </div>
 
-      <div className="mt-3 flex flex-wrap gap-2">
+      <div className="mt-3 flex flex-wrap gap-1.5">
         <button
           type="button"
           onClick={() => onPreset("cabai_50")}
-          className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs text-amber-800 hover:bg-amber-100"
+          className="rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[11px] text-amber-800 hover:bg-amber-100"
         >
           {COPY.sensitivity.presets.cabai_50}
         </button>
         <button
           type="button"
           onClick={() => onPreset("telur_minus10")}
-          className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs text-sky-800 hover:bg-sky-100"
+          className="rounded-full border border-sky-200 bg-sky-50 px-2 py-0.5 text-[11px] text-sky-800 hover:bg-sky-100"
         >
           {COPY.sensitivity.presets.telur_minus10}
         </button>
         <button
           type="button"
           onClick={() => onPreset("beras_15")}
-          className="rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-xs text-orange-800 hover:bg-orange-100"
+          className="rounded-full border border-orange-200 bg-orange-50 px-2 py-0.5 text-[11px] text-orange-800 hover:bg-orange-100"
         >
           {COPY.sensitivity.presets.beras_15}
         </button>
         <button
           type="button"
           onClick={() => onPreset("cabai_rawit_natal")}
-          className="rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs text-red-800 hover:bg-red-100"
+          className="rounded-full border border-red-200 bg-red-50 px-2 py-0.5 text-[11px] text-red-800 hover:bg-red-100"
         >
           {COPY.sensitivity.presets.cabai_rawit_natal}
         </button>
         <button
           type="button"
           onClick={() => onPreset("telur_lebaran")}
-          className="rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs text-violet-800 hover:bg-violet-100"
+          className="rounded-full border border-violet-200 bg-violet-50 px-2 py-0.5 text-[11px] text-violet-800 hover:bg-violet-100"
         >
           {COPY.sensitivity.presets.telur_lebaran}
         </button>
