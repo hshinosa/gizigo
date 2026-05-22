@@ -1,7 +1,7 @@
 # Demo Script (3-minute video)
 
 Live URL: **https://gizigo.jmola.my.id**
-Code: **(repo URL)** — public on submission.
+Code: **https://github.com/hshinosa/gizigo** — public on submission.
 
 Target: **2:30-3:00 minutes**. Aspect ratio: 1920×1080 H.264, ≤ 200 MB.
 

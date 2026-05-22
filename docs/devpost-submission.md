@@ -102,7 +102,7 @@ The implication is not that the budget is too low. It's that **AKG is reachable 
 | **Tagline** | Turn every Rupiah into the most nutritious daily plate. ILP-grade meal optimisation for Indonesian families against the 19.8% under-five stunting rate. |
 | **Image** | docs/screenshots/02-bu-sari-success.png |
 | **Try it out link 1** | https://gizigo.jmola.my.id |
-| **Try it out link 2** | (GitHub repo URL — paste once repo is public) |
+| **Try it out link 2** | https://github.com/hshinosa/gizigo |
 | **Demo video link** | (YouTube unlisted URL — paste after upload) |
 | **Categories** | HealthTech (primary), Open Innovation (secondary), Best Social Impact, AI/ML, Most Innovative |
 | **Built with** | python, fastapi, pulp, coin-or-cbc, postgresql, react, vite, tailwindcss, recharts, zod, nginx, docker, lets-encrypt, ubuntu |

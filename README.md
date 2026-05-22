@@ -3,7 +3,7 @@
 > **Operations-research-grade meal planner against Indonesian childhood stunting.**
 > Submitted to ALGOfest Hackathon 2026 (Battle of the Beasts).
 >
-> 🌐 Live demo: **https://gizigo.jmola.my.id**
+> 🌐 Live demo: **https://gizigo.jmola.my.id** · 📦 Source: **https://github.com/hshinosa/gizigo**
 
 ![GiziGo plan cards](docs/screenshots/02-bu-sari-success.png)
 
