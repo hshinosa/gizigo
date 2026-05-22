@@ -64,10 +64,11 @@ export default function App() {
   const [methodsOpen, setMethodsOpen] = useState(false);
   const autoRunRef = useRef(false);
 
-  const runOptimize = useCallback(async () => {
+  const runOptimize = useCallback(async (overrideRequest?: typeof request) => {
+    const req = overrideRequest ?? request;
     setStatus("loading");
     try {
-      const result = await optimize(request);
+      const result = await optimize(req);
       setResponse(result);
       if (result.infeasibility && result.plans.length === 0) {
         setStatus("infeasible");
@@ -239,9 +240,10 @@ export default function App() {
             <InfeasibilityPanel
               hint={response.infeasibility}
               onRaiseBudget={(newBudget) => {
-                setRequest((r) => ({ ...r, daily_budget_idr: newBudget }));
-                setStatus("idle");
+                const updated = { ...request, daily_budget_idr: newBudget };
+                setRequest(updated);
                 setResponse(null);
+                runOptimize(updated);
               }}
             />
           )}
